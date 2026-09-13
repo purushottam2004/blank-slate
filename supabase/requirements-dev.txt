@@ -1,0 +1,8 @@
+-r requirements.txt
+
+# Testing Requirements
+pytest==9.1.1
+pytest-asyncio==1.4.0
+
+# Linting Requirements
+pylint==4.0.8

@@ -43,11 +43,28 @@ python setup.py --skip-seed   # start + write .env only
 python setup.py --help
 ```
 
-### Re-seed later
+### SQL vs Python seeds
+
+- **SQL** — files in [`seeds/`](./seeds/) run on `supabase db reset` (`config.toml` `[db.seed]` uses `./seeds/*.sql`).
+- **Python** — [`seed.py`](./seed.py) auto-discovers `python_seeds/*.py` whose name **starts with `_`** and **contains `_seed_`**, sorted by filename. Payloads live in `python_seeds/data/_00N_data_*.py`.
+  - Committed example: `_001_seed_users.py`
+  - Local scratch: `_local_seed_experiments.py` (gitignored)
 
 ```bash
-source .venv/bin/activate   # if not already active
 python seed.py
+python python_seeds/_001_seed_users.py   # one script
+python unseed.py --all                   # wipe app tables, then seed.py again
+```
+
+Default password is `password123` (see `python_seeds/data/_001_data_users.py`).
+
+### Python tests
+
+Tests live under [`python_tests/`](./python_tests/) (not `tests/`, so they stay distinct from SQL).
+
+```bash
+uv run pytest python_tests/unit
+uv run pytest python_tests/integration   # needs local Supabase; skips if it is down
 ```
 
 ## What you get

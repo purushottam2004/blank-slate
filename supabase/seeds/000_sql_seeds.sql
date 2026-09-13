@@ -1,0 +1,4 @@
+-- SQL files in this folder run automatically on `supabase db reset`
+-- (see config.toml [db.seed] sql_paths = ["./seeds/*.sql"]).
+-- Number them 001_....sql, 002_....sql so they apply in order.
+-- Auth users and API-backed rows stay in python_seeds/ and run via seed.py.

@@ -1,5 +1,7 @@
 """
-Python seed scripts for Supabase database.
-These scripts run AFTER SQL seeds to create auth users and patch data.
-These scripts are supposed to be IDEMPOTENT, meaning they can be run multiple times without causing errors or duplicating data.
+Python seed scripts for Supabase.
+
+These run AFTER `supabase db reset` (SQL files under seeds/).
+Payloads live in python_seeds/data/; scripts insert via the Admin API.
+Scripts are supposed to be idempotent.
 """

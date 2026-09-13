@@ -1,8 +1,7 @@
-"""Seed payloads consumed by python_seeds/*.py scripts."""
+"""Seed payloads loaded by the numbered python_seeds scripts."""
 
-from .users import SEED_USERS, seed_user_emails
+from . import _001_data_users as user
 
 __all__ = [
-    "SEED_USERS",
-    "seed_user_emails",
+    "user",
 ]
