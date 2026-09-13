@@ -47,6 +47,8 @@ pnpm --filter web2 run dev        # web2 only
 
 Vite typically serves apps on ports **5173** / **5174**.
 
+On Vercel, keep a `vercel.json` with a rewrite of `/(.*)` → `/index.html` in the project Root Directory. Copies live at [`vercel.json`](./vercel.json), [`apps/web/vercel.json`](./apps/web/vercel.json), and [`apps/web2/vercel.json`](./apps/web2/vercel.json). Use the app copy when Root Directory is `frontend/apps/web` or `frontend/apps/web2`, and the frontend copy when Root Directory is `frontend`. Without it, client-side routes 404 on refresh.
+
 Browser flows that need backend + DB belong in **[../e2e/](../e2e/README.md)**. Playwright will build + preview these apps (or reuse `pnpm dev` if it is already up). Contribution rules: [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ### Other scripts
