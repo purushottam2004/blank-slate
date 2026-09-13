@@ -9,6 +9,8 @@ cd frontend
 pnpm lint
 ```
 
+Cursor / VS Code: repo-root [`.vscode/settings.json`](../.vscode/settings.json) sets ESLint working directories for `frontend/apps/*` and `frontend/packages/*`. Each package `eslint.config.js` sets `parserOptions.tsconfigRootDir` so TypeScript ESLint does not guess among multiple tsconfigs.
+
 ## Where to change code
 
 - **Product behaviour / pages** → `apps/<app>/` (`web`, `web2`)
