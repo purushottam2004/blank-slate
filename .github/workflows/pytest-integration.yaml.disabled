@@ -24,7 +24,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.11"]
+        python-version: ["3.13"]
 
     steps:
       - name: Checkout monorepo
@@ -52,8 +52,8 @@ jobs:
         working-directory: supabase
         run: |
           echo "url=$(supabase status --output json | jq -r '.API_URL')" >> $GITHUB_OUTPUT
-          echo "anon_key=$(supabase status --output json | jq -r '.ANON_KEY')" >> $GITHUB_OUTPUT
-          echo "service_key=$(supabase status --output json | jq -r '.SERVICE_ROLE_KEY')" >> $GITHUB_OUTPUT
+          echo "publishable_key=$(supabase status --output json | jq -r '.PUBLISHABLE_KEY')" >> $GITHUB_OUTPUT
+          echo "secret_key=$(supabase status --output json | jq -r '.SECRET_KEY')" >> $GITHUB_OUTPUT
 
       - name: Seed test data
         working-directory: supabase
@@ -62,7 +62,8 @@ jobs:
           python seed.py
         env:
           SUPABASE_URL: ${{ steps.supabase.outputs.url }}
-          SUPABASE_SERVICE_ROLE_KEY: ${{ steps.supabase.outputs.service_key }}
+          SUPABASE_PUBLISHABLE_KEY: ${{ steps.supabase.outputs.publishable_key }}
+          SUPABASE_SECRET_KEY: ${{ steps.supabase.outputs.secret_key }}
 
       - name: Install backend dependencies
         working-directory: backend
@@ -79,8 +80,8 @@ jobs:
         working-directory: backend
         env:
           SUPABASE_URL: ${{ steps.supabase.outputs.url }}
-          SUPABASE_ANON_KEY: ${{ steps.supabase.outputs.anon_key }}
-          SUPABASE_SERVICE_KEY: ${{ steps.supabase.outputs.service_key }}
+          SUPABASE_PUBLISHABLE_KEY: ${{ steps.supabase.outputs.publishable_key }}
+          SUPABASE_SECRET_KEY: ${{ steps.supabase.outputs.secret_key }}
           GEMINI_API_KEY: mock-api-key
           DEPLOYMENT_ENV: LOCAL
         run: |

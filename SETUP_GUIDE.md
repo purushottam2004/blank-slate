@@ -49,8 +49,15 @@ Once all three services are running:
 
 If Hello fails with a CORS or network error, confirm the backend is on [http://127.0.0.1:8080](http://127.0.0.1:8080), `DEPLOYMENT_ENV=LOCAL` in `backend/.env`, and `VITE_BACKEND_URL=http://127.0.0.1:8080` in `frontend/.env`.
 
+## GitHub Actions
+
+This repo ships predefined GitHub Actions workflows for frontend lint/build, backend lint/tests, and Supabase migrations. They live in [`.github/workflows/`](./.github/workflows/) as `*.yaml.disabled` until you enable them.
+
+What each workflow does, the versions it pins (Python ≥ 3.13, Node ≥ 22.13, pnpm ^11.17), and how to turn it on are in [`.github/workflows/SETUP.md`](./.github/workflows/SETUP.md).
+
 ## Package guides
 
 - [Supabase setup](./supabase/SETUP_GUIDE.md)
 - [Backend setup](./backend/SETUP_GUIDE.md)
 - [Frontend setup](./frontend/SETUP_GUIDE.md)
+- [GitHub Actions setup](./.github/workflows/SETUP.md)
