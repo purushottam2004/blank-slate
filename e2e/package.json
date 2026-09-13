@@ -1,0 +1,27 @@
+{
+  "name": "e2e",
+  "version": "0.0.1",
+  "private": true,
+  "description": "End-to-end tests for this template (Playwright)",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed --workers=1",
+    "test:headed:video": "E2E_VIDEO=1 playwright test --headed --workers=1",
+    "test:headed:video:images": "E2E_VIDEO=1 E2E_IMAGES=1 playwright test --headed --workers=1",
+    "test:web": "playwright test --project=web",
+    "test:web2": "playwright test --project=web2",
+    "test:web:headed": "playwright test --project=web --headed --workers=1",
+    "test:web2:headed": "playwright test --project=web2 --headed --workers=1",
+    "test:web:headed:video": "E2E_VIDEO=1 playwright test --project=web --headed --workers=1",
+    "test:web2:headed:video": "E2E_VIDEO=1 playwright test --project=web2 --headed --workers=1",
+    "test:browser": "playwright test --config=playwright.browser-check.config.ts --headed --workers=1",
+    "test:ui": "playwright test --ui",
+    "codegen": "playwright codegen"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.52.0",
+    "@types/node": "^25.2.3",
+    "dotenv": "^16.5.0",
+    "typescript": "^5.9.3"
+  }
+}

@@ -56,7 +56,7 @@ python python_seeds/_001_seed_users.py   # one script
 python unseed.py --all                   # wipe app tables, then seed.py again
 ```
 
-Default password is `password123` (see `python_seeds/data/_001_data_users.py`).
+Default password is `password123` (see `python_seeds/data/_001_data_users.py`). E2E login specs use `test@example.com` / that password.
 
 ### Python tests
 

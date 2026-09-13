@@ -89,6 +89,25 @@ The runner needs Docker (GitHub-hosted `ubuntu-latest` already has it).
 | Secrets | None |
 
 
+### `e2e.yaml` — Playwright E2E
+
+Starts local Supabase, seeds users, starts the backend, then runs Playwright from `e2e/`. Playwright builds + previews `web` (`5173`) and `web2` (`5174`). Uses:
+
+- `VITE_SUPABASE_URL`
+- `VITE_SUPABASE_PUBLISHABLE_KEY`
+- `VITE_BACKEND_URL`
+- `SUPABASE_URL`
+- `SUPABASE_PUBLISHABLE_KEY`
+- `SUPABASE_SECRET_KEY`
+
+The runner needs Docker (GitHub-hosted `ubuntu-latest` already has it). Local usage: [e2e/README.md](../../e2e/README.md).
+
+| | |
+| --- | --- |
+| Triggers | Push/PR touching `e2e/**`, `frontend/**`, `backend/**`, or `supabase/**` on `main` or `stage`; manual dispatch |
+| Secrets | None |
+
+
 ### `db-push.yaml` — Deploy Migrations to Production
 
 Links the Supabase CLI to a hosted project and runs `supabase db push`. Uses the GitHub Environment named `main`.

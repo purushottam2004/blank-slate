@@ -21,6 +21,7 @@ Install these before starting:
 1. **Database** — [supabase/SETUP_GUIDE.md](./supabase/SETUP_GUIDE.md)
 2. **Backend** — [backend/SETUP_GUIDE.md](./backend/SETUP_GUIDE.md)
 3. **Frontend** — [frontend/SETUP_GUIDE.md](./frontend/SETUP_GUIDE.md)
+4. **E2E** (optional) — [e2e/README.md](./e2e/README.md)
 
 After Supabase is up, copy values from [`supabase/.env`](./supabase/.env) (created by `setup.py`) into the backend and frontend env files. See each package guide for the exact variable names.
 
@@ -49,9 +50,11 @@ Once all three services are running:
 
 If Hello fails with a CORS or network error, confirm the backend is on [http://127.0.0.1:8080](http://127.0.0.1:8080), `DEPLOYMENT_ENV=LOCAL` in `backend/.env`, and `VITE_BACKEND_URL=http://127.0.0.1:8080` in `frontend/.env`.
 
+To run the same path in a browser automatically: [e2e/README.md](./e2e/README.md) (`cd e2e && npm test`).
+
 ## GitHub Actions
 
-This repo ships predefined GitHub Actions workflows for frontend lint/build, backend lint/tests, and Supabase migrations. They live in [`.github/workflows/`](./.github/workflows/) as `*.yaml.disabled` until you enable them.
+This repo ships predefined GitHub Actions workflows for frontend lint/build, backend lint/tests, Playwright e2e, and Supabase migrations. They live in [`.github/workflows/`](./.github/workflows/) as `*.yaml.disabled` until you enable them.
 
 What each workflow does, the versions it pins (Python ≥ 3.13, Node ≥ 22.13, pnpm ^11.17), and how to turn it on are in [`.github/workflows/SETUP.md`](./.github/workflows/SETUP.md).
 
@@ -60,4 +63,5 @@ What each workflow does, the versions it pins (Python ≥ 3.13, Node ≥ 22.13, 
 - [Supabase setup](./supabase/SETUP_GUIDE.md)
 - [Backend setup](./backend/SETUP_GUIDE.md)
 - [Frontend setup](./frontend/SETUP_GUIDE.md)
+- [E2E tests](./e2e/README.md)
 - [GitHub Actions setup](./.github/workflows/SETUP.md)
