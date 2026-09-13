@@ -1,2 +1,6 @@
+# Cache Files
 .pnpm-store/
+
+# TODO & TemporaryFiles
+temp/
 TODO
