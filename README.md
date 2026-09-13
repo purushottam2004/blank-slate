@@ -7,10 +7,25 @@ This repo is a template with:
 - **Database** — Supabase (managed Postgres + Auth)
 - **E2E** — Playwright (`web` + `web2`)
 
-## Setup
+## Docs
 
-Local development instructions live in the setup guides (not in this README):
+| Doc | Purpose |
+| --- | --- |
+| [AGENTS.md](./AGENTS.md) | Instructions for AI agents working in this repo |
+| [SETUP_GUIDE.md](./SETUP_GUIDE.md) | Get a local stack running (DB → API → apps → e2e) |
+| [CONTRIBUTING.md](./CONTRIBUTING.md) | Branches, PRs, and quality bar |
 
-- **Start here:** [SETUP_GUIDE.md](./SETUP_GUIDE.md)
-- [Supabase](./supabase/SETUP_GUIDE.md) · [Backend](./backend/SETUP_GUIDE.md) · [Frontend](./frontend/SETUP_GUIDE.md) · [E2E](./e2e/README.md)
+Package-level docs:
 
+| Package | README | Setup | Contributing |
+| --- | --- | --- | --- |
+| [backend/](./backend/) | [README](./backend/README.md) | [SETUP](./backend/SETUP_GUIDE.md) | [CONTRIBUTING](./backend/CONTRIBUTING.md) |
+| [frontend/](./frontend/) | [README](./frontend/README.md) | [SETUP](./frontend/SETUP_GUIDE.md) | [CONTRIBUTING](./frontend/CONTRIBUTING.md) |
+| [supabase/](./supabase/) | — | [SETUP](./supabase/SETUP_GUIDE.md) | [CONTRIBUTING](./supabase/CONTRIBUTING.md) |
+| [e2e/](./e2e/) | [README](./e2e/README.md) | — | — |
+
+## Quick start
+
+1. Follow **[SETUP_GUIDE.md](./SETUP_GUIDE.md)** (starts with `supabase`, then backend, then frontend).
+2. Read **[CONTRIBUTING.md](./CONTRIBUTING.md)** before opening a PR.
+3. Use the package README for day-to-day commands in that area.

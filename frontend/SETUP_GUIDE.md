@@ -47,7 +47,7 @@ pnpm --filter web2 run dev        # web2 only
 
 Vite typically serves apps on ports **5173** / **5174**.
 
-Browser flows that need backend + DB belong in **[../e2e/](../e2e/README.md)**. Playwright will build + preview these apps (or reuse `pnpm dev` if it is already up).
+Browser flows that need backend + DB belong in **[../e2e/](../e2e/README.md)**. Playwright will build + preview these apps (or reuse `pnpm dev` if it is already up). Contribution rules: [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ### Other scripts
 

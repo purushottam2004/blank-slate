@@ -66,3 +66,5 @@ docker compose up
 ## Next
 
 Configure and start the [frontend](../frontend/SETUP_GUIDE.md). Set `VITE_BACKEND_URL` to `http://127.0.0.1:8080`.
+
+Contribution rules: [CONTRIBUTING.md](./CONTRIBUTING.md).

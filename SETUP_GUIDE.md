@@ -64,4 +64,6 @@ What each workflow does, the versions it pins (Python ≥ 3.13, Node ≥ 22.13, 
 - [Backend setup](./backend/SETUP_GUIDE.md)
 - [Frontend setup](./frontend/SETUP_GUIDE.md)
 - [E2E tests](./e2e/README.md)
+- [Contributing](./CONTRIBUTING.md)
+- [Agent instructions](./AGENTS.md)
 - [GitHub Actions setup](./.github/workflows/SETUP.md)

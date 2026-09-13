@@ -76,3 +76,5 @@ uv run pytest python_tests/integration   # needs local Supabase; skips if it is 
 | DB | `postgresql://postgres:postgres@127.0.0.1:54322/postgres` |
 
 Use the keys in `.env` when configuring [backend](../backend/SETUP_GUIDE.md) and [frontend](../frontend/SETUP_GUIDE.md).
+
+Contribution rules: [CONTRIBUTING.md](./CONTRIBUTING.md).
