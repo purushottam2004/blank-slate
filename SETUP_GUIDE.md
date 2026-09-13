@@ -25,6 +25,8 @@ Install these before starting:
 
 After Supabase is up, copy values from [`supabase/.env`](./supabase/.env) (created by `setup.py`) into the backend and frontend env files. See each package guide for the exact variable names.
 
+Local Supabase also exposes MCP at [http://127.0.0.1:54321/mcp](http://127.0.0.1:54321/mcp). Cursor reads [`.cursor/mcp.json`](./.cursor/mcp.json); Claude Code reads [`.mcp.json`](./.mcp.json) at the repo root. See [CONTRIBUTING.md — Agent guidance](./CONTRIBUTING.md#agent-guidance).
+
 ## Verify: login → Hello
 
 Once all three services are running:
@@ -65,5 +67,5 @@ What each workflow does, the versions it pins (Python ≥ 3.13, Node ≥ 22.13, 
 - [Frontend setup](./frontend/SETUP_GUIDE.md)
 - [E2E tests](./e2e/README.md)
 - [Contributing](./CONTRIBUTING.md)
-- [Agent instructions](./AGENTS.md)
+- [Agent instructions](./AGENTS.md) (Cursor + Claude Code: [CONTRIBUTING.md — Agent guidance](./CONTRIBUTING.md#agent-guidance))
 - [GitHub Actions setup](./.github/workflows/SETUP.md)

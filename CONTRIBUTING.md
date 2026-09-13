@@ -82,17 +82,39 @@ Full commands: [Quality bar (by area)](#quality-bar-by-area).
 While contributing, if you notice anything that would have made the work easier or faster — missing steps, better logging, outdated commands, unclear SETUP/CONTRIBUTING/README sections, a missing or outdated agent skill, or useful tips that only lived in someone's head — **report it**.
 
 - Prefer a short note in the PR description (or a follow-up docs PR / issue).
-- Point at the file that should change when you can (`SETUP_GUIDE.md`, package guides, e2e README, `.cursor/skills/`, etc.).
+- Point at the file that should change when you can (`SETUP_GUIDE.md`, package guides, e2e README, `.cursor/skills/`, `.claude/skills/`, etc.).
 - Small doc fixes in the same PR are welcome when they are clearly related; larger doc rewrites can be a separate `chore/` PR.
 
 Good docs compound: leave the next person (including future you) better off than you found them.
 
-## Agent guidance (Cursor)
+## Agent guidance
 
-- Always-on agent instructions: **[AGENTS.md](./AGENTS.md)** (read the README hub before changing code or committing). Tools that look under `.agents/` use **[.agents/AGENTS.md](./.agents/AGENTS.md)**.
-- Project skills live under **[`.cursor/skills/`](./.cursor/skills/)** (each skill is a folder with `SKILL.md`).
-- Current skills:
-  - [`create-video-for-workflow`](./.cursor/skills/create-video-for-workflow/SKILL.md) — when asked for a video of a workflow, write a temporary e2e test, run it with `E2E_VIDEO=1` and `E2E_IMAGES=1`, point at `e2e/videos/<timestamp>/` (older runs are kept) and `images/`, and keep recorder specs in gitignored `video_test/` folders.
+Always-on agent instructions: **[AGENTS.md](./AGENTS.md)** (read the README hub before changing code or committing). Tools that look under `.agents/` use **[.agents/AGENTS.md](./.agents/AGENTS.md)**.
+
+This template supports **Cursor** and **Claude Code**. If you change a skill, update **both** copies so users templating with either tool stay in sync.
+
+| Tool | Instructions | Skills | Project MCP |
+| --- | --- | --- | --- |
+| Cursor | [AGENTS.md](./AGENTS.md) | [`.cursor/skills/`](./.cursor/skills/) | [`.cursor/mcp.json`](./.cursor/mcp.json) |
+| Claude Code | [`.claude/CLAUDE.md`](./.claude/CLAUDE.md) (imports `AGENTS.md`) | [`.claude/skills/`](./.claude/skills/) | [`.mcp.json`](./.mcp.json) |
+
+Claude Code does **not** read `.cursor/mcp.json`. Project MCP belongs in `.mcp.json` at the repo root, as strict JSON (no `//` comments) with `"type": "http"` on URL servers. After `supabase start`, approve `supabase-local` (`http://127.0.0.1:54321/mcp`) in the first interactive session. To use a remote project, add a personal HTTP server (do not commit the project ref):
+
+```json
+{
+  "mcpServers": {
+    "supabase-production": {
+      "type": "http",
+      "url": "https://mcp.supabase.com/mcp?project_ref=<your-remote-project-ref>&read_only=true"
+    }
+  }
+}
+```
+
+Current skills (same names in both skill trees):
+
+- [`create-video-for-workflow`](./.claude/skills/create-video-for-workflow/SKILL.md) — when asked for a video of a workflow, write a temporary e2e test, run it with `E2E_VIDEO=1` and `E2E_IMAGES=1`, point at `e2e/videos/<timestamp>/` (older runs are kept) and `images/`, and keep recorder specs in gitignored `video_test/` folders. Cursor copy: [`.cursor/skills/create-video-for-workflow/SKILL.md`](./.cursor/skills/create-video-for-workflow/SKILL.md).
+- [`development-full-stack-web-template`](./.claude/skills/development-full-stack-web-template/SKILL.md) — same standing workflow as [AGENTS.md](./AGENTS.md). Cursor copy: [`.cursor/skills/development-full-stack-web-template/SKILL.md`](./.cursor/skills/development-full-stack-web-template/SKILL.md).
 
 ## Quality bar (by area)
 

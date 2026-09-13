@@ -22,7 +22,7 @@ Use the **`gh` CLI** for all GitHub work in this repo: issues, pull requests, ch
 - If you cannot run a required check (missing services, env, etc.), say so explicitly and list what was **not** run — never imply full verification.
 - Prefer reporting failures and fixing them over declaring done.
 
-The Cursor IDE browser tab often cannot reach local apps (`localhost` / `127.0.0.1`). Verify local UIs with Playwright (`e2e/`) or `curl` against `127.0.0.1`.
+Embedded IDE browsers often cannot reach local apps (`localhost` / `127.0.0.1`). Verify local UIs with Playwright (`e2e/`) or `curl` against `127.0.0.1`.
 
 ## After you finish
 

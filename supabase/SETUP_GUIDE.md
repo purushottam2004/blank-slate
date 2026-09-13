@@ -72,9 +72,10 @@ uv run pytest python_tests/integration   # needs local Supabase; skips if it is 
 | Service | Typical local URL |
 | --- | --- |
 | API | `http://127.0.0.1:54321` |
+| MCP | `http://127.0.0.1:54321/mcp` |
 | Studio | `http://127.0.0.1:54323` |
 | DB | `postgresql://postgres:postgres@127.0.0.1:54322/postgres` |
 
-Use the keys in `.env` when configuring [backend](../backend/SETUP_GUIDE.md) and [frontend](../frontend/SETUP_GUIDE.md).
+Use the keys in `.env` when configuring [backend](../backend/SETUP_GUIDE.md) and [frontend](../frontend/SETUP_GUIDE.md). Cursor reads [`../.cursor/mcp.json`](../.cursor/mcp.json); Claude Code reads [`../.mcp.json`](../.mcp.json) at the repo root (`"type": "http"` required).
 
 Contribution rules: [CONTRIBUTING.md](./CONTRIBUTING.md).

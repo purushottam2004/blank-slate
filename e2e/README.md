@@ -31,7 +31,7 @@ Start these yourself before running tests:
 
 Playwright will **build + preview** `web` (`5173`) and `web2` (`5174`) automatically. If those servers are already up, they are reused (outside CI). `frontend/.env` must be filled so the preview build gets `VITE_SUPABASE_*` and `VITE_BACKEND_URL`.
 
-The Cursor IDE browser tab often cannot open local apps (`localhost` / `127.0.0.1`). Use these Playwright commands (or `curl`) to verify UI — do not treat a blank IDE-browser tab as the app being down.
+Embedded IDE browsers often cannot open local apps (`localhost` / `127.0.0.1`). Use these Playwright commands (or `curl`) to verify UI — do not treat a blank IDE-browser tab as the app being down.
 
 ## Setup
 
