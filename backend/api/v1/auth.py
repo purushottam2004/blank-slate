@@ -86,7 +86,6 @@ def require_supabase_user(
     supabase = get_supabase_client()
 
     try:
-        # Supabase SDK verifies the JWT server-side; no manual decoding here.
         response = supabase.auth.get_user(token)
     except Exception as exc:
         logger.warning(
