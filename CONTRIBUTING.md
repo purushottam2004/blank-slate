@@ -51,9 +51,30 @@ Example:
 ```
 changed : auto-discover python_seeds/_…_seed_….py scripts and add unseed.py
 changed : add python_tests/ unit coverage and seed/unseed smoke
+
+Agent Notes::
+Seed scripts are discovered by filename, not by a registry: the file must start
+with `_` and contain `_seed_`, or seed.py will silently skip it. Unit tests mock
+discovery; they will not catch a misnamed new script until you run a real seed.
 ```
 
-You may add notes, context, or a longer body after this block if needed, but the **one line per change** list is the important part and should always be present.
+The **one line per change** list is required and must come first. Extra context may follow it. Every commit must still **end** with [Agent Notes](#agent-notes-required-on-every-commit).
+
+### Agent Notes (required on every commit)
+
+This applies to **every commit in this monorepo** — AI agents and humans, any package, any file (code, tests, docs, config).
+
+End the commit message with a block whose heading is exactly `Agent Notes::` (that spelling, with the double colon). Put it **last**, after the `changed :` lines and after any other body.
+
+Write what a future reader would **not** get from the diff alone:
+
+- Findings while reading or changing the code (surprising control flow, hidden coupling, naming traps, env / seed / ID constraints).
+- Nuances and judgment (why a simpler approach was wrong, order-of-operations, which venv or workspace you had to use, what you almost broke).
+- Leftovers a reviewer should know (risks you accepted, checks you could not run, follow-ups that still belong in docs or a later PR).
+
+Keep it concrete and local to this change. Do **not** restate the `changed :` lines. Do **not** paste secrets, tokens, or `.env` values.
+
+If the change is trivial and you discovered nothing, still include the heading and one honest sentence (for example `Routine wording fix; no code nuance.`). Omitting `Agent Notes::`, or leaving it empty, is not allowed.
 
 ### Before committing (mandatory)
 
