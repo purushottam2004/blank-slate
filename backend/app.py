@@ -14,13 +14,34 @@ from config.logger import setup_logging
 setup_logging()
 
 from api.v1.router import router as v1_router
-from config.settings import DEPLOYMENT_ENV
+from config.pings import PingsExecutor
+from config.settings import (
+    ANTHROPIC_API_KEY,
+    DEPLOYMENT_ENV,
+    GEMINI_API_KEY,
+    OPENAI_API_KEY,
+    PING,
+    SUPABASE_PUBLISHABLE_KEY,
+    SUPABASE_SECRET_KEY,
+    SUPABASE_URL,
+)
 
 logger = logging.getLogger(__name__)
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    """Run connectivity checks once on startup when PING is TRUE."""
+    if PING:
+        ping_executor = PingsExecutor(
+            supabase_url=SUPABASE_URL,
+            supabase_secret_key=SUPABASE_SECRET_KEY,
+            supabase_publishable_key=SUPABASE_PUBLISHABLE_KEY,
+            gemini_api_key=GEMINI_API_KEY,
+            openai_api_key=OPENAI_API_KEY,
+            anthropic_api_key=ANTHROPIC_API_KEY,
+        )
+        await ping_executor.execute()
     yield
 
 

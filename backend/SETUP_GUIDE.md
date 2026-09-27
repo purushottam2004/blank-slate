@@ -44,6 +44,7 @@ Also set:
 - `DEPLOYMENT_ENV=LOCAL` for local development (CORS / local behavior)
 - Optional: `GEMINI_API_KEY`, `OPENAI_API_KEY`, `ANTHROPIC_API_KEY`
 - Optional: `LOGGING_LEVEL=INFO`
+- `PING=TRUE` to run those connectivity checks once when the API starts. Leave it `FALSE` otherwise.
 
 See [`.env.example`](./.env.example) for the full list.
 

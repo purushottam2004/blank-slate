@@ -1,174 +1,120 @@
 # pylint: disable=broad-exception-caught
 """
 Module Exposes a function to test if all API and SECURE KEYs are work
-All Ping Functions should be inside the class 'Pings' and should start with 'ping_'
+All Ping Functions should be inside the class 'PingsExecutor' and should start with 'ping_'
 """
 
-import os
-import functools
+import asyncio
 import logging
-import time
+from dataclasses import dataclass, field
 
 import requests
-import litellm
-from supabase import create_client
+from supabase import acreate_client
+
+from .utils import env, ping_litellm_api_key, with_retries
 
 logger = logging.getLogger(__name__)
 
-DEFAULT_LITELLM_PING_PROMPT = "Say OK"
 
-class Pings:
+@dataclass
+class PingsExecutor:
+    """Runs connectivity checks for External Services.
+    Services:
+    - Supabase
+    - Gemini
+    - OpenAI
+    - Anthropic
 
-    def with_retries(retries: int = 5, initial_delay: float = 1.0):
-        """Decorator to retry a function with exponential backoff."""
+    Omitted constructor arguments are read from the environment.
+    Secret fields use repr=False so they are left out of repr().
+    """
 
-        def decorator(func):
-            @functools.wraps(func)
-            def wrapper(*args, **kwargs):
-                delay = initial_delay
-                last_exc = None
-                for attempt in range(retries):
-                    try:
-                        return func(*args, **kwargs)
-                    except Exception as e:
-                        last_exc = e
-                        if attempt < retries - 1:
-                            logger.warning(
-                                "Retry attempt failed",
-                                extra={
-                                    "function_name": func.__name__,
-                                    "attempt": attempt + 1,
-                                    "max_retries": retries,
-                                    "error": str(e),
-                                    "retry_delay_seconds": delay,
-                                },
-                            )
-                            time.sleep(delay)
-                            delay = min(delay * 2, 16.0)
-                logger.error(
-                    "Function failed after all retries",
-                    extra={
-                        "function_name": func.__name__,
-                        "max_retries": retries,
-                        "final_error": str(last_exc),
-                    },
-                )
-                return False
+    supabase_url: str = field(default_factory=lambda: env("SUPABASE_URL"))
+    supabase_secret_key: str = field(
+        default_factory=lambda: env("SUPABASE_SECRET_KEY"),
+        repr=False,
+    )
+    supabase_publishable_key: str = field(
+        default_factory=lambda: env("SUPABASE_PUBLISHABLE_KEY"),
+        repr=False,
+    )
+    gemini_api_key: str = field(
+        default_factory=lambda: env("GEMINI_API_KEY"),
+        repr=False,
+    )
+    openai_api_key: str = field(
+        default_factory=lambda: env("OPENAI_API_KEY"),
+        repr=False,
+    )
+    anthropic_api_key: str = field(
+        default_factory=lambda: env("ANTHROPIC_API_KEY"),
+        repr=False,
+    )
 
-            return wrapper
-
-        return decorator
-
-    @staticmethod
-    def _ping_litellm_api_key(*, env_var: str, model: str, provider_name: str) -> bool:
-        """Ping a LiteLLM-backed provider using the configured API key."""
-        api_key = os.getenv(env_var)
-        if not api_key:
-            logger.warning(
-                f"{provider_name} API key is not set",
-                extra={
-                    "status": "failure",
-                    "error": f"{env_var} environment variable is missing",
-                },
-            )
-            return False
-
-        try:
-            response = litellm.completion(
-                model=model,
-                messages=[{"role": "user", "content": DEFAULT_LITELLM_PING_PROMPT}],
-                api_key=api_key,
-            )
-            response_preview = (
-                response.choices[0].message.content[:10]
-                if response.choices and response.choices[0].message.content
-                else None
-            )
-            logger.info(
-                f"{provider_name} API key check passed",
-                extra={
-                    "status": "success",
-                    "response_preview": response_preview,
-                },
-            )
-            return True
-
-        except Exception as e:
-            logger.error(
-                f"{provider_name} API key check failed",
-                extra={
-                    "status": "failure",
-                    "error": str(e),
-                },
-            )
-            return False
-
-    
     @with_retries(retries=5)
-    def ping_gemini_api_key():
+    async def ping_gemini_api_key(self) -> bool:
         """To Check if Gemini Key works"""
-        return Pings._ping_litellm_api_key(
-            env_var="GEMINI_API_KEY",
+        return await ping_litellm_api_key(
+            api_key=self.gemini_api_key,
             model="gemini/gemini-2.5-flash",
             provider_name="Gemini",
         )
 
-
     @with_retries(retries=5)
-    def ping_openai_api_key() -> bool:
+    async def ping_openai_api_key(self) -> bool:
         """To Check if OPENAI API KEY works"""
-        return Pings._ping_litellm_api_key(
-            env_var="OPENAI_API_KEY",
+        return await ping_litellm_api_key(
+            api_key=self.openai_api_key,
             model="openai/gpt-4.1-mini",
             provider_name="OpenAI",
         )
 
-
     @with_retries(retries=5)
-    def ping_anthropic_api_key() -> bool:
+    async def ping_anthropic_api_key(self) -> bool:
         """To Check if Anthropic API KEY works"""
-        return Pings._ping_litellm_api_key(
-            env_var="ANTHROPIC_API_KEY",
+        return await ping_litellm_api_key(
+            api_key=self.anthropic_api_key,
             model="anthropic/claude-3-5-sonnet-latest",
             provider_name="Anthropic",
         )
 
-
     @with_retries(retries=5)
-    def ping_supabase_connection() -> bool:
+    async def ping_supabase_connection(self) -> bool:
         """To check if SUPABASE_URL and SUPABASE_PUBLISHABLE_KEY work"""
-        supabase_url = os.getenv("SUPABASE_URL")
-        publishable_key = os.getenv("SUPABASE_PUBLISHABLE_KEY") or os.getenv("SUPABASE_ANON_KEY")
-
-        if not supabase_url or not publishable_key:
+        if not self.supabase_url or not self.supabase_publishable_key:
             logger.warning(
                 "Supabase connection details are not set",
                 extra={
                     "status": "failure",
-                    "error": "SUPABASE_URL or SUPABASE_PUBLISHABLE_KEY environment variables are missing",
+                    "error": "SUPABASE_URL or SUPABASE_PUBLISHABLE_KEY is missing",
                 },
             )
             return False
 
         try:
             headers = {
-                "apikey": publishable_key,
-                "Authorization": f"Bearer {publishable_key}",
+                "apikey": self.supabase_publishable_key,
+                "Authorization": f"Bearer {self.supabase_publishable_key}",
             }
 
-            r = requests.get(f"{supabase_url}/rest/v1/", headers=headers, timeout=5)
+            response = await asyncio.to_thread(
+                requests.get,
+                f"{self.supabase_url}/rest/v1/",
+                headers=headers,
+                timeout=5,
+            )
 
             # 401 = key accepted but no resource (EXPECTED)
-            if r.status_code in (200, 401, 404):
+            if response.status_code in (200, 401, 404):
                 logger.info(
                     "Supabase connection check passed",
                     extra={
                         "status": "success",
-                        "http_status_code": r.status_code,
+                        "http_status_code": response.status_code,
                     },
                 )
                 return True
-            raise RuntimeError(f"Unexpected status code: {r.status_code}")
+            raise RuntimeError(f"Unexpected status code: {response.status_code}")
 
         except Exception as e:
             logger.error(
@@ -180,29 +126,25 @@ class Pings:
             )
             return False
 
-
     @with_retries(retries=5)
-    def ping_supabase_secret_key() -> bool:
+    async def ping_supabase_secret_key(self) -> bool:
         """To check if SUPABASE_SECRET_KEY works"""
-        supabase_url = os.getenv("SUPABASE_URL")
-        secret_key = os.getenv("SUPABASE_SECRET_KEY")
-
-        if not supabase_url or not secret_key:
+        if not self.supabase_url or not self.supabase_secret_key:
             logger.warning(
                 "Supabase secret key details are not set",
                 extra={
                     "status": "failure",
-                    "error": "SUPABASE_URL or SUPABASE_SECRET_KEY environment variables are missing",
+                    "error": "SUPABASE_URL or SUPABASE_SECRET_KEY is missing",
                 },
             )
             return False
 
         try:
-            supabase = create_client(supabase_url, secret_key)
+            supabase = await acreate_client(self.supabase_url, self.supabase_secret_key)
 
             # Secret key must bypass RLS
             # This query should succeed even if RLS is enabled
-            supabase.table("users").select("id").limit(1).execute()
+            await supabase.table("users").select("id").limit(1).execute()
             logger.info(
                 "Supabase secret key check passed",
                 extra={
@@ -220,3 +162,19 @@ class Pings:
                 },
             )
             raise
+
+    async def execute(self) -> None:
+        """Run every configured ping_* check once."""
+        checks = []
+        if self.gemini_api_key:
+            checks.append(self.ping_gemini_api_key())
+        if self.openai_api_key:
+            checks.append(self.ping_openai_api_key())
+        if self.anthropic_api_key:
+            checks.append(self.ping_anthropic_api_key())
+        if self.supabase_url and self.supabase_publishable_key:
+            checks.append(self.ping_supabase_connection())
+        if self.supabase_url and self.supabase_secret_key:
+            checks.append(self.ping_supabase_secret_key())
+        if checks:
+            await asyncio.gather(*checks)
