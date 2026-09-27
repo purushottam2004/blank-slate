@@ -13,14 +13,14 @@ Thanks for contributing. This file is the **repo-wide** workflow. Language- and 
 
 ## Python virtualenvs
 
-Never use system / raw `python` (or `python3`) for this repo. Each Python package has its own venv — activate that one before running anything.
+Never use system / raw `python` (or `python3`) for this repo. Each Python package has its own env, created by `uv sync` in that directory. Run its commands with `uv run` from that directory.
 
-| Work | Venv | Activate |
+| Work | Directory | Run |
 | --- | --- | --- |
-| Anything **supabase** related (seeds, `seed.py`, `unseed.py`, seed scripts, `python_tests/`) | `supabase/.venv` | `cd supabase && source .venv/bin/activate` (or `uv run` from `supabase/`) |
-| Anything **backend** related (API, pytest, pylint, uvicorn) | `backend/.venv` | `cd backend && source .venv/bin/activate` |
+| Anything **supabase** related (seeds, `seed.py`, `unseed.py`, seed scripts, `python_tests/`) | `supabase/` | `uv run …` |
+| Anything **backend** related (API, pytest, pylint, uvicorn) | `backend/` | `uv run …` |
 
-Do not mix them: do not run seeds with `backend/.venv`, and do not run the API or backend tests with `supabase/.venv`. If the venv is missing, create it from that package’s [SETUP_GUIDE.md](./SETUP_GUIDE.md) (`python -m venv .venv` is only for creating the venv, then use `.venv/bin/python` / activate from then on).
+Do not mix them: do not run seeds from `backend/`, and do not run the API or backend tests from `supabase/`. If `.venv` is missing, `uv sync` in that package (see its [SETUP_GUIDE.md](./SETUP_GUIDE.md)).
 
 ## Branches
 
@@ -83,9 +83,9 @@ If the change is trivial and you discovered nothing, still include the heading a
 
 | Touched | Must run before commit |
 | --- | --- |
-| `backend/` | `pylint .`, `pytest tests/unit` (+ `tests/integration` when DB-related) — from `backend/.venv` |
+| `backend/` | `uv run pylint .`, `uv run pytest tests/unit` (+ `tests/integration` when DB-related) — from `backend/` |
 | `frontend/` | `pnpm lint` |
-| `supabase/` | Apply / validate migrations as needed; `pytest python_tests/unit` from `supabase/.venv` or `uv run`; smoke `seed.py` when seeds change; keep IDs in sync with backend/e2e |
+| `supabase/` | Apply / validate migrations as needed; `uv run pytest python_tests/unit` from `supabase/`; smoke `uv run python seed.py` when seeds change; keep IDs in sync with backend/e2e |
 | `e2e/` or behaviour covered by Playwright | Relevant `npm run test:…` project(s) |
 | `android/` | `./gradlew test lint` from `android/` (JDK 17 and Android SDK platform 37.2) |
 
@@ -147,9 +147,8 @@ Run the checks for the packages you touched:
 
 ```bash
 cd backend
-source .venv/bin/activate
-pylint .
-pytest tests/unit   # + tests/integration when DB-related
+uv run pylint .
+uv run pytest tests/unit   # + tests/integration when DB-related
 ```
 
 Details: [backend/CONTRIBUTING.md](./backend/CONTRIBUTING.md).
@@ -167,13 +166,12 @@ Details: [frontend/CONTRIBUTING.md](./frontend/CONTRIBUTING.md).
 
 - Prefer new migrations over editing applied history.
 - Keep Python seed IDs / emails in sync with backend and e2e expectations.
-- Run Python seeds from `supabase/.venv` (`cd supabase && source .venv/bin/activate`) or `uv run`, never raw `python`.
+- Run Python seeds with `uv run` from `supabase/`, never raw `python`.
 
 ```bash
 cd supabase
-source .venv/bin/activate
-pytest python_tests/unit
-# pytest python_tests/integration   # needs local Supabase
+uv run pytest python_tests/unit
+# uv run pytest python_tests/integration   # needs local Supabase
 ```
 
 Details: [supabase/CONTRIBUTING.md](./supabase/CONTRIBUTING.md).

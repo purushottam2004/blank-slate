@@ -9,7 +9,7 @@ Install these before starting:
 
 | Tool                                                                                   | Notes                      |
 | -------------------------------------------------------------------------------------- | -------------------------- |
-| [Python](https://www.python.org/downloads/)                                            | ≥ 3.13                     |
+| [uv](https://docs.astral.sh/uv/)                                                       | 0.12.19. Installs Python 3.12 from each package’s `.python-version` |
 | [Docker](https://docs.docker.com/get-docker/)                                          | Daemon must be running     |
 | [Node.js](https://nodejs.org/)                                                         | ≥ 22.13 (for the frontend) |
 | [pnpm](https://pnpm.io/installation)                                                   | ^11.17                     |

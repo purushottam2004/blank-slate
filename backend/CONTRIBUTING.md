@@ -6,8 +6,7 @@ Repo-wide rules: [../CONTRIBUTING.md](../CONTRIBUTING.md). Setup: [SETUP_GUIDE.m
 
 ```bash
 cd backend
-source .venv/bin/activate
-pylint .                 # same command CI runs (.github/workflows/pylint.yaml)
+uv run pylint .
 ```
 
 - **Pylint** — static analysis. Required in CI on `backend/**` changes. Fix new warnings before merging.
@@ -21,8 +20,8 @@ pylint .                 # same command CI runs (.github/workflows/pylint.yaml)
 ## Tests
 
 ```bash
-pytest tests/unit -v
-pytest tests/integration -v   # needs local Supabase + seeded users + .env
+uv run pytest tests/unit -v
+uv run pytest tests/integration -v   # needs local Supabase + seeded users + .env
 ```
 
 Do not hardcode secrets in tests; use env / fixtures.

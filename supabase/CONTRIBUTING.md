@@ -34,7 +34,7 @@ These files are **gitignored** (`python_seeds/_local_seed_*.py`). Do not commit 
 After a migration or seed change:
 
 1. `supabase db reset` (or migrate) on a clean local project.
-2. `python seed.py` (or the scripts you changed) from `supabase/.venv` or `uv run`.
+2. `uv run python seed.py` (or the scripts you changed) from `supabase/`.
 3. Smoke the dependent package (backend tests and/or `e2e`).
 
 ```bash

@@ -7,7 +7,8 @@ For the full project flow, see the root [SETUP_GUIDE.md](../SETUP_GUIDE.md).
 ## Prerequisites
 
 - Docker daemon running
-- Python ≥ 3.13
+- [uv](https://docs.astral.sh/uv/) 0.12.19
+- Python 3.12 (`supabase/.python-version`). `uv sync` installs it if it is missing.
 - [Supabase CLI](https://supabase.com/docs/guides/local-development/cli/getting-started)
 
 ## Steps
@@ -16,18 +17,13 @@ From the [`supabase/`](./) directory:
 
 ```bash
 # 1. Virtualenv + seed dependencies
-python -m venv .venv
-
-# macOS / Linux
-source .venv/bin/activate
-# Windows
-# .venv\Scripts\activate
-
-pip install -r requirements.txt
+uv sync
 
 # 2. Start stack, write .env, seed data
-python setup.py
+uv run python setup.py
 ```
+
+`uv sync` creates `supabase/.venv` from `pyproject.toml` and `uv.lock`. Run the Python scripts with `uv run`.
 
 [`setup.py`](./setup.py) will:
 
@@ -39,8 +35,8 @@ python setup.py
 ### Useful flags
 
 ```bash
-python setup.py --skip-seed   # start + write .env only
-python setup.py --help
+uv run python setup.py --skip-seed   # start + write .env only
+uv run python setup.py --help
 ```
 
 ### SQL vs Python seeds
@@ -51,9 +47,9 @@ python setup.py --help
   - Local scratch: `_local_seed_experiments.py` (gitignored)
 
 ```bash
-python seed.py
-python python_seeds/_001_seed_users.py   # one script
-python unseed.py --all                   # wipe app tables, then seed.py again
+uv run python seed.py
+uv run python python_seeds/_001_seed_users.py   # one script
+uv run python unseed.py --all                   # wipe app tables, then seed.py again
 ```
 
 Default password is `password123` (see `python_seeds/data/_001_data_users.py`). E2E login specs use `test@example.com` / that password.

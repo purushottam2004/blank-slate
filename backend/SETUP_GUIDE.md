@@ -6,7 +6,8 @@ For the full project flow, see the root [SETUP_GUIDE.md](../SETUP_GUIDE.md). Do 
 
 ## Prerequisites
 
-- Python ≥ 3.13
+- [uv](https://docs.astral.sh/uv/) 0.12.19 (same release as `backend/uv.lock`)
+- Python 3.12 (`backend/.python-version`). `uv sync` installs it if it is missing.
 - Local Supabase running (or a remote project)
 
 ## Steps
@@ -14,20 +15,14 @@ For the full project flow, see the root [SETUP_GUIDE.md](../SETUP_GUIDE.md). Do 
 From the [`backend/`](./) directory:
 
 ```bash
-# 1. Virtualenv + dependencies
-python -m venv .venv
-
-# macOS / Linux
-source .venv/bin/activate
-# Windows
-# .venv\Scripts\activate
-
-pip install -r requirements.txt
-# optional: pip install -r requirements-dev.txt
+# 1. Virtualenv + dependencies (includes the dev group: pytest, pylint)
+uv sync
 
 # 2. Environment
 cp .env.example .env
 ```
+
+`uv sync` creates `backend/.venv` from `pyproject.toml` and `uv.lock`. Run commands with `uv run` so they use that env. Production images install with `uv sync --frozen --no-dev` and skip the dev group.
 
 ### Fill `.env`
 
@@ -51,7 +46,7 @@ See [`.env.example`](./.env.example) for the full list.
 ### Run
 
 ```bash
-python main.py
+uv run python main.py
 ```
 
 API listens on [http://127.0.0.1:8080](http://127.0.0.1:8080).
@@ -59,8 +54,8 @@ API listens on [http://127.0.0.1:8080](http://127.0.0.1:8080).
 Alternatively:
 
 ```bash
-uvicorn main:app --host 127.0.0.1 --port 8080
-# or with Docker:
+uv run uvicorn main:app --host 127.0.0.1 --port 8080
+# or with Docker (the image installs deps with uv):
 docker compose up
 ```
 
