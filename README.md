@@ -7,6 +7,12 @@ This repo is a template with:
 - **Database** — Supabase (managed Postgres + Auth)
 - **E2E** — Playwright (`web` + `web2`)
 
+## Motivation
+
+```
+It came from the need of repeatedly doing the same chore work before bringing any abstract idea into reality. The chore work of setting up backend and databases, 
+```
+
 ## Docs
 
 | Doc | Purpose |
