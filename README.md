@@ -4,6 +4,7 @@ This repo is a template with:
 
 - **Backend** — FastAPI (Python)
 - **Frontend** — React + TypeScript (Vite, pnpm workspace)
+- **Android** — Kotlin + Jetpack Compose (Gradle)
 - **Database** — Supabase (managed Postgres + Auth)
 - **E2E** — Playwright (`web` + `web2`)
 
@@ -41,6 +42,7 @@ Package-level docs:
 | [frontend/](./frontend/) | [README](./frontend/README.md) | [SETUP](./frontend/SETUP_GUIDE.md) | [CONTRIBUTING](./frontend/CONTRIBUTING.md) |
 | [supabase/](./supabase/) | — | [SETUP](./supabase/SETUP_GUIDE.md) | [CONTRIBUTING](./supabase/CONTRIBUTING.md) |
 | [e2e/](./e2e/) | [README](./e2e/README.md) | — | — |
+| [android/](./android/) | [README](./android/README.md) | [SETUP](./android/SETUP_GUIDE.md) | [CONTRIBUTING](./android/CONTRIBUTING.md) |
 
 ## Quick start
 

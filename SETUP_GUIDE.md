@@ -14,6 +14,7 @@ Install these before starting:
 | [Node.js](https://nodejs.org/)                                                         | ≥ 22.13 (for the frontend) |
 | [pnpm](https://pnpm.io/installation)                                                   | ^11.17                     |
 | [Supabase CLI](https://supabase.com/docs/guides/local-development/cli/getting-started) | Latest Version             |
+| JDK 17 and Android SDK platform 37.2 | Only for the Android app. See [android/SETUP_GUIDE.md](./android/SETUP_GUIDE.md) |
 
 
 ## Setup order
@@ -22,6 +23,7 @@ Install these before starting:
 2. **Backend** — [backend/SETUP_GUIDE.md](./backend/SETUP_GUIDE.md)
 3. **Frontend** — [frontend/SETUP_GUIDE.md](./frontend/SETUP_GUIDE.md)
 4. **E2E** (optional) — [e2e/README.md](./e2e/README.md)
+5. **Android** (optional) — [android/SETUP_GUIDE.md](./android/SETUP_GUIDE.md)
 
 After Supabase is up, copy values from [`supabase/.env`](./supabase/.env) (created by `setup.py`) into the backend and frontend env files. See each package guide for the exact variable names.
 
@@ -56,7 +58,7 @@ To run the same path in a browser automatically: [e2e/README.md](./e2e/README.md
 
 ## GitHub Actions
 
-This repo ships predefined GitHub Actions workflows for frontend lint/build, backend lint/tests, Playwright e2e, and Supabase migrations. They live in [`.github/workflows/`](./.github/workflows/) as `*.yaml.disabled` until you enable them.
+This repo ships predefined GitHub Actions workflows for frontend lint/build, backend lint/tests, Playwright e2e, Supabase migrations, and the Android unit tests plus debug APK. They live in [`.github/workflows/`](./.github/workflows/) as `*.yaml.disabled` until you enable them.
 
 What each workflow does, the versions it pins (Python ≥ 3.13, Node ≥ 22.13, pnpm ^11.17), and how to turn it on are in [`.github/workflows/SETUP.md`](./.github/workflows/SETUP.md).
 
@@ -66,6 +68,7 @@ What each workflow does, the versions it pins (Python ≥ 3.13, Node ≥ 22.13, 
 - [Backend setup](./backend/SETUP_GUIDE.md)
 - [Frontend setup](./frontend/SETUP_GUIDE.md)
 - [E2E tests](./e2e/README.md)
+- [Android setup](./android/SETUP_GUIDE.md)
 - [Contributing](./CONTRIBUTING.md)
 - [Agent instructions](./AGENTS.md) (Cursor + Claude Code: [CONTRIBUTING.md — Agent guidance](./CONTRIBUTING.md#agent-guidance))
 - [GitHub Actions setup](./.github/workflows/SETUP.md)

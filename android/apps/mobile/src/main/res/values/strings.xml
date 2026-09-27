@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Blank Slate</string>
+    <string name="loading">Loading…</string>
+    <string name="sign_in_title">Sign in</string>
+    <string name="sign_in_body">Authentication is required to use this app.</string>
+    <string name="email_label">Email</string>
+    <string name="password_label">Password</string>
+    <string name="sign_in">Sign in</string>
+    <string name="signing_in">Signing in…</string>
+    <string name="home_title">Mobile</string>
+    <string name="signed_in_as">Signed in as %1$s</string>
+    <string name="sign_out">Sign out</string>
+    <string name="backend_heading">Backend</string>
+    <string name="hello_body">Call the authenticated /api/v1/hello endpoint.</string>
+    <string name="hello">Hello</string>
+    <string name="calling">Calling…</string>
+</resources>

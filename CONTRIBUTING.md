@@ -9,6 +9,7 @@ Thanks for contributing. This file is the **repo-wide** workflow. Language- and 
 | Backend (Python / FastAPI) | [backend/CONTRIBUTING.md](./backend/CONTRIBUTING.md) |
 | Frontend (TypeScript / React) | [frontend/CONTRIBUTING.md](./frontend/CONTRIBUTING.md) |
 | Database (Supabase) | [supabase/CONTRIBUTING.md](./supabase/CONTRIBUTING.md) |
+| Android (Kotlin / Compose) | [android/CONTRIBUTING.md](./android/CONTRIBUTING.md) |
 
 ## Python virtualenvs
 
@@ -86,6 +87,7 @@ If the change is trivial and you discovered nothing, still include the heading a
 | `frontend/` | `pnpm lint` |
 | `supabase/` | Apply / validate migrations as needed; `pytest python_tests/unit` from `supabase/.venv` or `uv run`; smoke `seed.py` when seeds change; keep IDs in sync with backend/e2e |
 | `e2e/` or behaviour covered by Playwright | Relevant `npm run test:…` project(s) |
+| `android/` | `./gradlew test lint` from `android/` (JDK 17 and Android SDK platform 37.2) |
 
 If a check fails, **fix it and create a new commit** only after green (or update the PR description with an explicit waiver only when the team agrees). Skipping these because the change “looks fine” is not allowed.
 
@@ -184,6 +186,15 @@ npm test                 # or npm run test:web / test:web2
 ```
 
 Details: [e2e/README.md](./e2e/README.md).
+
+**Android**
+
+```bash
+cd android
+./gradlew test lint
+```
+
+JVM unit tests and lint. No emulator. Details: [android/CONTRIBUTING.md](./android/CONTRIBUTING.md).
 
 ## Security
 

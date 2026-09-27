@@ -26,6 +26,8 @@ CI is pinned to the same minimums as the root setup guide:
 | Python | `3.13` | ≥ 3.13 |
 | Node.js | `22` | ≥ 22.13 |
 | pnpm | `11.17.0` | ^11.17 |
+| JDK | `17` | 17 (Android builds) |
+| Android SDK | platform 37.2, build-tools 36.0.0 | Same, via `sdkmanager` |
 
 ## Workflows
 
@@ -127,3 +129,12 @@ Create that environment under **Settings → Environments → New environment** 
 
 
 Do not enable this until the secrets and `main` environment exist, or the job will fail on an empty project link.
+
+### `android.yaml` — Android unit tests, lint, and debug APK
+
+Installs JDK 17 and Android SDK platform 37.2, then runs `./gradlew test lint assembleDebug` in `android/`. Uploads `mobile-debug.apk`. Does not start an emulator and does not need Supabase credentials. Unit tests fake the network.
+
+| | |
+| --- | --- |
+| Triggers | Push/PR touching `android/**` on `main` or `stage`; manual dispatch |
+| Secrets | None |

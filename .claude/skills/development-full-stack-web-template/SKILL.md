@@ -11,7 +11,7 @@ This file applies to **every** task in this monorepo.
 ## Before changing code or committing
 
 1. Read the root **[README.md](../../../README.md)**.
-2. Follow every doc it links that is relevant to the area you will touch (for example `SETUP_GUIDE.md`, `CONTRIBUTING.md`, and the package `README` / `SETUP_GUIDE` / `CONTRIBUTING` under `backend/`, `frontend/`, `supabase/`, or `e2e/`).
+2. Follow every doc it links that is relevant to the area you will touch (for example `SETUP_GUIDE.md`, `CONTRIBUTING.md`, and the package `README` / `SETUP_GUIDE` / `CONTRIBUTING` under `backend/`, `frontend/`, `supabase/`, `android/`, or `e2e/`).
 3. Prefer those docs over guessing commands, env vars, seed data, branch rules, or test layout.
 4. Do **not** edit the codebase or create a commit until that reading is done for the packages in scope.
 5. **Before any commit:** run the mandatory checks in root [CONTRIBUTING.md](../../../CONTRIBUTING.md) (“Before committing”) for every package you touched. Do not commit on type-check-only or “seeded OK” when lint/tests/e2e apply.
