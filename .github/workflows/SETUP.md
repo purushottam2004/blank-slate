@@ -57,7 +57,7 @@ Runs `pnpm build` in `frontend/`. Copies `frontend/.env.example` to `.env`, then
 
 ### `ruff.yaml` — Backend Lint
 
-Runs `ruff check .` and `ruff format --check .` in `backend/` after `pip install -r requirements-dev.txt` (includes `ruff`).
+Runs `uv sync --frozen`, then `uv run ruff check .` and `uv run ruff format --check .` in `backend/`. uv is pinned to `0.12.19`, the same release as the backend image.
 
 | | |
 | --- | --- |
@@ -67,7 +67,7 @@ Runs `ruff check .` and `ruff format --check .` in `backend/` after `pip install
 
 ### `pytest-unit.yaml` — Backend Unit Tests
 
-Runs `pytest tests/unit/` in `backend/`.
+Runs `uv run pytest tests/unit/ -n auto` in `backend/` so pytest-xdist uses every core on the runner.
 
 | | |
 | --- | --- |
