@@ -2,7 +2,7 @@
 
 Browser end-to-end tests for this template. Specs live under `tests/`; Playwright starts the frontends (or reuses ones already running).
 
-What each spec covers: **[TESTS.md](./TESTS.md)**.
+What each spec covers: **[TESTS.md](./TESTS.md)**. How the layer fits the rest of the repo: **[TESTING.md](./TESTING.md)**.
 
 Monorepo docs: [../README.md](../README.md) · [../SETUP_GUIDE.md](../SETUP_GUIDE.md) · [../CONTRIBUTING.md](../CONTRIBUTING.md) · [../AGENTS.md](../AGENTS.md)  
 Stack setup: [../supabase/SETUP_GUIDE.md](../supabase/SETUP_GUIDE.md) · [../backend/SETUP_GUIDE.md](../backend/SETUP_GUIDE.md) · [../frontend/SETUP_GUIDE.md](../frontend/SETUP_GUIDE.md)

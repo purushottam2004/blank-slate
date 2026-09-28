@@ -1,6 +1,6 @@
 # Contributing to the Android app
 
-Repo-wide rules: [../CONTRIBUTING.md](../CONTRIBUTING.md). Setup: [SETUP_GUIDE.md](./SETUP_GUIDE.md).
+Repo-wide rules: [../CONTRIBUTING.md](../CONTRIBUTING.md). Setup: [SETUP_GUIDE.md](./SETUP_GUIDE.md). Tests: [TESTING.md](./TESTING.md).
 
 ## Before you push
 

@@ -21,6 +21,7 @@ It came from the need of repeatedly doing the same chore work before bringing an
 | [AGENTS.md](./AGENTS.md) | Shared instructions for AI agents (Cursor, Claude Code, and others) |
 | [SETUP_GUIDE.md](./SETUP_GUIDE.md) | Get a local stack running (DB → API → apps → e2e) |
 | [CONTRIBUTING.md](./CONTRIBUTING.md) | Branches, PRs, and quality bar |
+| [TESTING.md](./TESTING.md) | What each layer tests and how to run it |
 
 ## AI agents (Cursor and Claude Code)
 
