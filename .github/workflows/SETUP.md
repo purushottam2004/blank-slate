@@ -132,7 +132,7 @@ Do not enable this until the secrets and `main` environment exist, or the job wi
 
 ### `android.yaml` — Android unit tests, lint, and debug APK
 
-Installs JDK 17 and Android SDK platform 37.2, then runs `./gradlew test lint assembleDebug` in `android/`. Uploads `mobile-debug.apk`. Does not start an emulator and does not need Supabase credentials. Unit tests fake the network.
+Uses the GitHub runner’s preinstalled Android SDK (`ANDROID_SDK_ROOT`, usually `/usr/local/lib/android/sdk`) and installs platform 37.2 and build-tools 36.0.0 into that SDK when they are missing. Then runs `./gradlew test lint assembleDebug` in `android/` and uploads `mobile-debug.apk`. Does not start an emulator and does not need Supabase credentials. Unit tests fake the network.
 
 | | |
 | --- | --- |
