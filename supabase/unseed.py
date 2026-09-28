@@ -22,6 +22,8 @@ ROOT = Path(__file__).resolve().parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from python_seeds.data._002_data_assets import LOGIN_PHOTO_OBJECT, SEED_ASSETS_BUCKET
+
 
 class Colors:
     HEADER = "\033[95m"
@@ -69,13 +71,27 @@ def wipe_users(supabase) -> None:
     print_success(f"public.users: wiped {total} user(s)")
 
 
+def wipe_seed_assets(supabase) -> None:
+    print_info(f"Removing {LOGIN_PHOTO_OBJECT} from {SEED_ASSETS_BUCKET}")
+    try:
+        supabase.storage.from_(SEED_ASSETS_BUCKET).remove([LOGIN_PHOTO_OBJECT])
+        print_success(f"{SEED_ASSETS_BUCKET}: removed {LOGIN_PHOTO_OBJECT}")
+    except Exception as exc:
+        print_info(f"{SEED_ASSETS_BUCKET}: {exc} (object may already be gone)")
+
+
 def make_steps(supabase):
-    return (("users", lambda: wipe_users(supabase)),)
+    return (
+        ("users", lambda: wipe_users(supabase)),
+        ("seed_assets", lambda: wipe_seed_assets(supabase)),
+    )
 
 
 TABLE_ALIASES = {
     "users": "users",
     "public.users": "users",
+    "seed_assets": "seed_assets",
+    "storage.seed_assets": "seed_assets",
 }
 
 

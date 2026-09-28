@@ -39,9 +39,23 @@ def test_main_rejects_all_and_table_name_together(monkeypatch):
     assert exc_info.value.code == 2
 
 
-def test_make_steps_includes_users():
+def test_make_steps_includes_users_and_seed_assets():
     names = [name for name, _fn in unseed.make_steps(MagicMock())]
-    assert names == ["users"]
+    assert names == ["users", "seed_assets"]
+
+
+def test_resolve_table_name_seed_assets():
+    assert unseed.resolve_table_name("seed_assets", ["users", "seed_assets"]) == "seed_assets"
+    assert (
+        unseed.resolve_table_name("storage.seed_assets", ["users", "seed_assets"]) == "seed_assets"
+    )
+
+
+def test_wipe_seed_assets_removes_object():
+    supabase = MagicMock()
+    unseed.wipe_seed_assets(supabase)
+    supabase.storage.from_.assert_called_once_with("seed_assets")
+    supabase.storage.from_.return_value.remove.assert_called_once_with(["login-photo.svg"])
 
 
 def test_run_step_reraises():

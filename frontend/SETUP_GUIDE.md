@@ -27,11 +27,11 @@ Vite loads shared env from this folder first, then `apps/<app>/.env*` (app value
 
 ### Fill env vars
 
-| Variable | Value |
-| --- | --- |
-| `VITE_SUPABASE_URL` | From [`supabase/.env`](../supabase/.env.example) → `SUPABASE_URL` (local default `http://127.0.0.1:54321`) |
-| `VITE_SUPABASE_PUBLISHABLE_KEY` | From supabase `.env` → `SUPABASE_PUBLISHABLE_KEY` |
-| `VITE_BACKEND_URL` | Backend URL, e.g. `http://127.0.0.1:8080` |
+| Variable                        | Value                                                                                                      |
+| ------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `VITE_SUPABASE_URL`             | From [`supabase/.env`](../supabase/.env.example) → `SUPABASE_URL` (local default `http://127.0.0.1:54321`) |
+| `VITE_SUPABASE_PUBLISHABLE_KEY` | From supabase `.env` → `SUPABASE_PUBLISHABLE_KEY`                                                          |
+| `VITE_BACKEND_URL`              | Backend URL, e.g. `http://127.0.0.1:8080`                                                                  |
 
 Never put `SUPABASE_SECRET_KEY` in frontend env files.
 
@@ -56,4 +56,14 @@ Browser flows that need backend + DB belong in **[../e2e/](../e2e/README.md)**. 
 ```bash
 pnpm build
 pnpm lint
+pnpm type-check
+pnpm format
+```
+
+Google and phone sign-in use Supabase Auth in the browser (no extra Vite keys). Enable `[auth.external.google]` and SMS in [`../supabase/config.toml`](../supabase/config.toml) when you want those providers; they stay disabled by default.
+
+After a database migration, regenerate TypeScript types:
+
+```bash
+pnpm --filter @repo/db run generate
 ```

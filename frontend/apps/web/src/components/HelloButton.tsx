@@ -23,7 +23,14 @@ export function HelloButton() {
   }
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', maxWidth: '28rem' }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '0.75rem',
+        maxWidth: '28rem',
+      }}
+    >
       <Button type="button" onClick={handleClick} disabled={loading}>
         {loading ? 'Calling…' : 'Hello'}
       </Button>

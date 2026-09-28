@@ -7,6 +7,7 @@ Repo-wide rules: [../CONTRIBUTING.md](../CONTRIBUTING.md). Setup: [SETUP_GUIDE.m
 ```bash
 cd frontend
 pnpm lint
+pnpm type-check
 ```
 
 Cursor / VS Code: repo-root [`.vscode/settings.json`](../.vscode/settings.json) sets ESLint working directories for `frontend/apps/*` and `frontend/packages/*`. Each package `eslint.config.js` sets `parserOptions.tsconfigRootDir` so TypeScript ESLint does not guess among multiple tsconfigs.
@@ -15,7 +16,10 @@ Cursor / VS Code: repo-root [`.vscode/settings.json`](../.vscode/settings.json) 
 
 - **Product behaviour / pages** → `apps/<app>/` (`web`, `web2`)
 - **Shared UI or auth** → `packages/ui`, `packages/auth` (coordinate — both apps depend on them)
+- **Generated Database types** → `packages/db` (`pnpm --filter @repo/db run generate` after a migration)
 - Prefer existing patterns in `@repo/ui` and `@repo/auth` over one-off copies
+
+See [TESTING.md](./TESTING.md).
 
 ## Apps vs e2e
 

@@ -41,6 +41,7 @@ def test_discover_seed_scripts_finds_committed_users_script():
     stems = [Path(path).stem for _module, path in found]
 
     assert "_001_seed_users" in stems
+    assert "_002_seed_assets" in stems
     assert all(stem.startswith("_") and "_seed_" in stem for stem in stems)
     assert "client" not in stems
     assert "__init__" not in stems

@@ -6,7 +6,16 @@
     "dev": "pnpm --filter \"./apps/*\" --parallel run dev",
     "build": "pnpm --recursive run build",
     "lint": "pnpm --recursive run lint",
+    "type-check": "pnpm --recursive run type-check",
+    "generate:types": "pnpm --filter @repo/db run generate",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,css,md,yml,yaml,html}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,css,md,yml,yaml,html}\"",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx,json,css,md,yml,yaml,html}": [
+      "prettier --write"
+    ]
   },
   "keywords": [],
   "author": "",
@@ -18,6 +27,11 @@
       "version": "11.17.0",
       "onFail": "download"
     }
+  },
+  "devDependencies": {
+    "lint-staged": "^16.2.7",
+    "prettier": "^3.6.2",
+    "prettier-plugin-tailwindcss": "^0.6.14"
   },
   "type": "module"
 }

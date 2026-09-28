@@ -1,42 +1,59 @@
-import type { ButtonHTMLAttributes, CSSProperties } from 'react'
+import { forwardRef, type ButtonHTMLAttributes } from 'react'
+import { Slot } from '@radix-ui/react-slot'
+import { cva, type VariantProps } from 'class-variance-authority'
+import { cn } from './lib/cn'
 
-export type ButtonVariant = 'primary' | 'secondary'
+const buttonVariants = cva(
+  'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0',
+  {
+    variants: {
+      variant: {
+        primary: 'bg-primary text-primary-foreground hover:bg-primary/90',
+        secondary:
+          'border border-primary bg-transparent text-primary hover:bg-accent',
+        destructive:
+          'bg-destructive text-destructive-foreground hover:bg-destructive/90',
+        outline:
+          'border border-input bg-background hover:bg-accent hover:text-accent-foreground',
+        ghost: 'hover:bg-accent hover:text-accent-foreground',
+        link: 'text-primary underline-offset-4 hover:underline',
+      },
+      size: {
+        default: 'h-10 px-4 py-2',
+        sm: 'h-9 rounded-md px-3',
+        lg: 'h-11 rounded-md px-8',
+        icon: 'h-10 w-10',
+      },
+    },
+    defaultVariants: {
+      variant: 'primary',
+      size: 'default',
+    },
+  },
+)
 
-export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
-  variant?: ButtonVariant
-}
+/** Kept for existing `@repo/ui` imports; `primary` is the default shadcn-style action. */
+export type ButtonVariant = NonNullable<
+  VariantProps<typeof buttonVariants>['variant']
+>
 
-const baseStyle: CSSProperties = {
-  display: 'inline-flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  gap: '0.5rem',
-  padding: '0.6rem 1.1rem',
-  borderRadius: '8px',
-  border: '1px solid transparent',
-  fontSize: '0.95rem',
-  fontWeight: 600,
-  cursor: 'pointer',
-  transition: 'opacity 0.15s ease',
-}
+export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
+  VariantProps<typeof buttonVariants> & {
+    asChild?: boolean
+  }
 
-const variantStyles: Record<ButtonVariant, CSSProperties> = {
-  primary: { background: '#646cff', color: '#fff' },
-  secondary: { background: 'transparent', color: '#646cff', borderColor: '#646cff' },
-}
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ className, variant, size, asChild = false, ...props }, ref) => {
+    const Comp = asChild ? Slot : 'button'
+    return (
+      <Comp
+        className={cn(buttonVariants({ variant, size, className }))}
+        ref={ref}
+        {...props}
+      />
+    )
+  },
+)
+Button.displayName = 'Button'
 
-export function Button({ variant = 'primary', style, disabled, ...props }: ButtonProps) {
-  return (
-    <button
-      {...props}
-      disabled={disabled}
-      style={{
-        ...baseStyle,
-        ...variantStyles[variant],
-        opacity: disabled ? 0.6 : 1,
-        cursor: disabled ? 'not-allowed' : 'pointer',
-        ...style,
-      }}
-    />
-  )
-}
+export { buttonVariants }

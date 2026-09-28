@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="96" viewBox="0 0 160 96" role="img" aria-label="Example seed photo">
+  <rect width="160" height="96" rx="12" fill="#eef2ff"/>
+  <circle cx="52" cy="40" r="16" fill="#818cf8"/>
+  <rect x="80" y="28" width="56" height="10" rx="5" fill="#4f46e5"/>
+  <rect x="80" y="46" width="40" height="8" rx="4" fill="#a5b4fc"/>
+  <text x="80" y="80" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#312e81">seed_assets</text>
+</svg>

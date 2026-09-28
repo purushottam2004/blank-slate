@@ -1,35 +1,33 @@
 import { Button } from '@repo/ui'
-import { useAuth } from '../auth/useAuth'
+import { useAuth } from '@repo/auth'
 import { HelloButton } from '../components/HelloButton'
 
 export function HomePage() {
   const { user, signOut } = useAuth()
 
   return (
-    <main style={{ padding: '2rem', fontFamily: 'system-ui, sans-serif' }}>
-      <header
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          gap: '1rem',
-          marginBottom: '2rem',
-        }}
-      >
+    <main className="p-8">
+      <header className="mb-8 flex items-center justify-between gap-4">
         <div>
-          <h1 style={{ margin: 0 }}>Web2</h1>
-          <p style={{ margin: '0.35rem 0 0', color: '#555' }}>
+          <h1 className="m-0">Web2</h1>
+          <p className="text-muted-foreground mt-1">
             Signed in as <strong>{user?.email}</strong>
           </p>
         </div>
-        <Button type="button" variant="secondary" onClick={() => void signOut()}>
+        <Button
+          type="button"
+          variant="secondary"
+          onClick={() => void signOut()}
+        >
           Sign out
         </Button>
       </header>
 
       <section>
         <h2>Backend</h2>
-        <p>Call the authenticated <code>/api/v1/hello</code> endpoint.</p>
+        <p>
+          Call the authenticated <code>/api/v1/hello</code> endpoint.
+        </p>
         <HelloButton />
       </section>
     </main>

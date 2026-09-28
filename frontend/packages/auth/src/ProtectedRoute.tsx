@@ -1,5 +1,5 @@
 import { Navigate, Outlet, useLocation } from 'react-router-dom'
-import { useAuth } from '../auth/useAuth'
+import { useAuth } from './useAuth'
 
 /**
  * Wraps authenticated routes. Unauthenticated users are sent to /login.
@@ -10,7 +10,7 @@ export function ProtectedRoute() {
   const location = useLocation()
 
   if (loading) {
-    return <p style={{ padding: '2rem' }}>Loading…</p>
+    return <p className="p-8">Loading…</p>
   }
 
   if (!user) {

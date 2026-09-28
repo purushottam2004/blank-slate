@@ -20,7 +20,7 @@ export async function fillEmailSignIn(
 ) {
   await page.getByLabel("Email").fill(email);
   await page.getByLabel("Password").fill(password);
-  await page.getByRole("button", { name: "Sign in" }).click();
+  await page.getByRole("button", { name: "Sign in", exact: true }).click();
 }
 
 /** Full email sign-in and wait until /login is left. */

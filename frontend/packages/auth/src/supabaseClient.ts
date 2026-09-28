@@ -1,13 +1,14 @@
 import { createClient, type SupabaseClient } from '@supabase/supabase-js'
+import type { Database } from '@repo/db'
 
-let cachedClient: SupabaseClient | null = null
+let cachedClient: SupabaseClient<Database> | null = null
 
 /**
- * Lazily creates (and memoizes) a Supabase client from Vite env vars.
+ * Lazily creates (and memoizes) a typed Supabase client from Vite env vars.
  * Reading env lazily means an app can still render without credentials;
  * an error is only thrown when auth is actually attempted.
  */
-export function getSupabaseClient(): SupabaseClient {
+export function getSupabaseClient(): SupabaseClient<Database> {
   if (cachedClient) return cachedClient
 
   const url = import.meta.env.VITE_SUPABASE_URL
@@ -19,6 +20,6 @@ export function getSupabaseClient(): SupabaseClient {
     )
   }
 
-  cachedClient = createClient(url, key)
+  cachedClient = createClient<Database>(url, key)
   return cachedClient
 }

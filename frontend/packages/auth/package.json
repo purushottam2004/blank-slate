@@ -8,11 +8,14 @@
   },
   "scripts": {
     "build": "tsc --noEmit -p tsconfig.json",
+    "type-check": "tsc --noEmit -p tsconfig.json",
     "lint": "eslint ."
   },
   "dependencies": {
+    "@repo/db": "workspace:*",
     "@repo/ui": "workspace:*",
-    "@supabase/supabase-js": "^2.45.0"
+    "@supabase/supabase-js": "^2.45.0",
+    "react-router-dom": "^7.18.1"
   },
   "peerDependencies": {
     "react": "^19.0.0",

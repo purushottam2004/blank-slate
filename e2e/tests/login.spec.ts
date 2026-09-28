@@ -36,8 +36,8 @@ test.describe("Login", () => {
     await fillEmailSignIn(page, email, "wrong-password-xxxxx");
 
     await expect(page).toHaveURL(/\/login/);
-    await expect(page.getByText(/invalid login credentials/i)).toBeVisible({
-      timeout: 10_000,
-    });
+    await expect(
+      page.locator("form").getByText(/invalid login credentials/i)
+    ).toBeVisible({ timeout: 10_000 });
   });
 });

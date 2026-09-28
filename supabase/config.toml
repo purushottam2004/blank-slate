@@ -117,7 +117,13 @@ enabled = true
 # The maximum file size allowed (e.g. "5MB", "500KB").
 file_size_limit = "50MiB"
 
-# Uncomment to configure local storage buckets
+# Example public bucket for seeded demo assets (login photo, etc.).
+[storage.buckets.seed_assets]
+public = true
+file_size_limit = "1MiB"
+allowed_mime_types = ["image/svg+xml", "image/png"]
+
+# Uncomment to configure additional local storage buckets
 # [storage.buckets.images]
 # public = false
 # file_size_limit = "50MiB"
@@ -160,6 +166,7 @@ site_url = "http://127.0.0.1:5173"
 # The public URL that Auth serves on. Defaults to the API external URL with `/auth/v1` appended.
 # external_url = ""
 # A list of *exact* URLs that auth providers are permitted to redirect to post authentication.
+# Include every app origin used for Google OAuth (web + web2 locally).
 additional_redirect_urls = ["http://127.0.0.1:5173", "http://127.0.0.1:5174"]
 # How long tokens are valid for, in seconds. Defaults to 3600 (1 hour), maximum 604,800 (1 week).
 jwt_expiry = 3600
@@ -254,6 +261,8 @@ otp_expiry = 3600
 # subject = "Your password has been changed"
 # content_path = "./templates/password_changed_notification.html"
 
+# Phone OTP (signInWithOtp / verifyOtp). Leave disabled until you configure an SMS
+# provider below (Twilio by default). Tests and lint do not require live credentials.
 [auth.sms]
 # Allow/disallow new user signups via SMS to your project.
 enable_signup = false
@@ -325,6 +334,15 @@ client_id = ""
 # DO NOT commit your OAuth provider secret to git. Use environment variable substitution instead:
 secret = "env(SUPABASE_AUTH_EXTERNAL_APPLE_SECRET)"
 # Overrides the default auth callback URL derived from auth.external_url.
+redirect_uri = ""
+
+# Google OAuth for the shared login page. Disabled by default — no live credentials
+# are required for unit tests or lint. When enabling, set client_id/secret via env
+# and add each app origin to additional_redirect_urls (and the Google console).
+[auth.external.google]
+enabled = false
+client_id = "env(SUPABASE_AUTH_EXTERNAL_GOOGLE_CLIENT_ID)"
+secret = "env(SUPABASE_AUTH_EXTERNAL_GOOGLE_SECRET)"
 redirect_uri = ""
 # Overrides the default auth provider URL. Used to support self-hosted gitlab, single-tenant Azure,
 # or any other third-party OIDC providers.

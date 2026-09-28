@@ -43,7 +43,7 @@ uv run python setup.py --help
 
 - **SQL** — files in [`seeds/`](./seeds/) run on `supabase db reset` (`config.toml` `[db.seed]` uses `./seeds/*.sql`).
 - **Python** — [`seed.py`](./seed.py) auto-discovers `python_seeds/*.py` whose name **starts with `_`** and **contains `_seed_`**, sorted by filename. Payloads live in `python_seeds/data/_00N_data_*.py`.
-  - Committed example: `_001_seed_users.py`
+  - Committed examples: `_001_seed_users.py`, `_002_seed_assets.py` (public `seed_assets` photo)
   - Local scratch: `_local_seed_experiments.py` (gitignored)
 
 ```bash
@@ -61,7 +61,30 @@ Tests live under [`python_tests/`](./python_tests/) (not `tests/`, so they stay 
 ```bash
 uv run pytest python_tests/unit
 uv run pytest python_tests/integration   # needs local Supabase; skips if it is down
+uv run ruff check .
+uv run ruff format --check .
 ```
+
+### Google and phone auth (optional)
+
+Both stay **disabled** until you turn them on. The shared login page still renders the buttons.
+
+1. **Google** — set `[auth.external.google] enabled = true` and `SUPABASE_AUTH_EXTERNAL_GOOGLE_CLIENT_ID` / `SUPABASE_AUTH_EXTERNAL_GOOGLE_SECRET` (see [`.env.example`](./.env.example)). Add each app origin to `additional_redirect_urls` and to the Google OAuth client (local defaults: `http://127.0.0.1:5173` and `http://127.0.0.1:5174`). The browser calls `signInWithOAuth({ provider: 'google' })`.
+2. **Phone OTP** — set `[auth.sms] enable_signup = true` and enable an SMS provider (`[auth.sms.twilio]` or `test_otp`). The browser calls `signInWithOtp` / `verifyOtp`. Do not commit Twilio tokens.
+
+Unit tests and lint do not need live Google or Twilio credentials.
+
+### Regenerate types after a migration
+
+```bash
+# TypeScript (from frontend/, local Supabase must be running)
+pnpm --filter @repo/db run generate
+
+# Pydantic (from backend/)
+uv run python scripts/generate_schema.py
+```
+
+The login page loads `seed_assets/login-photo.svg` from the public Storage URL (`VITE_SUPABASE_URL` + `/storage/v1/object/public/...`). `python seed.py` uploads it; `unseed.py` removes the object.
 
 ## What you get
 

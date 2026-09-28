@@ -1,0 +1,23 @@
+{
+  "name": "@repo/db",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Generated Supabase Database types for this template's public schema.",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "build": "tsc --noEmit -p tsconfig.json",
+    "type-check": "tsc --noEmit -p tsconfig.json",
+    "lint": "eslint .",
+    "generate": "bash -c 'supabase gen types typescript --workdir \"$(git rev-parse --show-toplevel)/supabase\" --local > src/database.types.ts'"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.6.0",
+    "globals": "^17.7.0",
+    "typescript": "~6.0.2",
+    "typescript-eslint": "^8.62.0"
+  }
+}

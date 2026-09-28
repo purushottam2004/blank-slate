@@ -1,4 +1,4 @@
-import { supabase } from './supabaseClient'
+import { getSupabaseClient } from '@repo/auth'
 
 function getBackendBaseUrl(): string {
   const base = import.meta.env.VITE_BACKEND_URL
@@ -22,6 +22,7 @@ export async function backendFetch<T = unknown>(
   path: string,
   init: RequestInit = {},
 ): Promise<T> {
+  const supabase = getSupabaseClient()
   const {
     data: { session },
   } = await supabase.auth.getSession()
