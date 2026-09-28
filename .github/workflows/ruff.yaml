@@ -1,4 +1,4 @@
-name: Pylint (Backend Linting)
+name: Ruff (Backend Linting)
 
 on:
   push:
@@ -31,6 +31,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements-dev.txt
-    - name: Analysing the code with pylint
+    - name: Ruff check and format
       run: |
-        pylint .
+        ruff check .
+        ruff format --check .

@@ -2,11 +2,11 @@
 
 Predefined workflows for this template. Local stack setup is in the root [SETUP_GUIDE.md](../../SETUP_GUIDE.md).
 
-Workflows are committed as `*.yaml.disabled` so a fresh fork does not run CI until you opt in.
-
-## Enable a workflow
+Testing and linting workflows are enabled (files named `*.yaml`). Deploy workflows stay `*.yaml.disabled` until you opt in.
 
 GitHub only runs files named `*.yml` or `*.yaml` under `.github/workflows/`.
+
+## Enable a disabled workflow
 
 ```bash
 # from the repo root
@@ -33,7 +33,7 @@ CI is pinned to the same minimums as the root setup guide:
 
 ### `frontend-lint.yaml` — Frontend Lint
 
-Runs `pnpm lint` in `frontend/`.
+Runs `pnpm lint` and `pnpm type-check` in `frontend/`.
 
 | | |
 | --- | --- |
@@ -55,9 +55,9 @@ Runs `pnpm build` in `frontend/`. Copies `frontend/.env.example` to `.env`, then
 | Secrets | None |
 
 
-### `pylint.yaml` — Backend Lint
+### `ruff.yaml` — Backend Lint
 
-Runs `pylint .` in `backend/` after `pip install -r requirements-dev.txt` (includes `pylint`).
+Runs `ruff check .` and `ruff format --check .` in `backend/` after `pip install -r requirements-dev.txt` (includes `ruff`).
 
 | | |
 | --- | --- |

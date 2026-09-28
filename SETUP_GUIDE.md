@@ -58,7 +58,7 @@ To run the same path in a browser automatically: [e2e/README.md](./e2e/README.md
 
 ## GitHub Actions
 
-This repo ships predefined GitHub Actions workflows for frontend lint/build, backend lint/tests, Playwright e2e, Supabase migrations, and the Android unit tests plus debug APK. They live in [`.github/workflows/`](./.github/workflows/) as `*.yaml.disabled` until you enable them.
+Testing and linting GitHub Actions are enabled: frontend lint/build, backend Ruff and pytest (unit and integration), Playwright e2e, and Android unit tests plus a debug APK. Supabase `db push` stays disabled until you opt in. Details are in [`.github/workflows/`](./.github/workflows/).
 
 What each workflow does, the versions it pins (Python ≥ 3.13, Node ≥ 22.13, pnpm ^11.17), and how to turn it on are in [`.github/workflows/SETUP.md`](./.github/workflows/SETUP.md).
 
