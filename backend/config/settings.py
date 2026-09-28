@@ -9,13 +9,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 SUPABASE_URL = os.getenv("SUPABASE_URL", "")
-SUPABASE_SECRET_KEY = (
-    os.getenv("SUPABASE_SECRET_KEY")
-    or ""
-)
-SUPABASE_PUBLISHABLE_KEY = (
-    os.getenv("SUPABASE_PUBLISHABLE_KEY") or ""
-)
+SUPABASE_SECRET_KEY = os.getenv("SUPABASE_SECRET_KEY") or ""
+SUPABASE_PUBLISHABLE_KEY = os.getenv("SUPABASE_PUBLISHABLE_KEY") or ""
 
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY") or ""
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY") or ""

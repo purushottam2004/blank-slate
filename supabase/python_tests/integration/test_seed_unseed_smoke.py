@@ -19,10 +19,7 @@ def _auth_and_profile(admin_client, email: str, user_id: str) -> dict:
     auth_id = get_auth_user_id_by_email(admin_client, email)
     assert auth_id == user_id
     profile = (
-        admin_client.table("users")
-        .select("id, username, display_name")
-        .eq("id", user_id)
-        .execute()
+        admin_client.table("users").select("id, username, display_name").eq("id", user_id).execute()
     )
     assert profile.data, f"missing public.users row for {email}"
     return profile.data[0]

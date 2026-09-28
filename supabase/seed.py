@@ -19,8 +19,8 @@ Usage:
 import importlib
 import sys
 import time
+from collections.abc import Callable
 from pathlib import Path
-from typing import Callable, List, Optional, Tuple
 
 
 class Colors:
@@ -69,7 +69,7 @@ def is_seed_script(path: Path) -> bool:
     )
 
 
-def discover_seed_scripts() -> List[Tuple[str, str]]:
+def discover_seed_scripts() -> list[tuple[str, str]]:
     """
     Discover seed scripts under python_seeds/ (top-level only).
     Returns sorted list of (module_name, file_path).
@@ -84,12 +84,12 @@ def discover_seed_scripts() -> List[Tuple[str, str]]:
     return [(f"python_seeds.{p.stem}", str(p)) for p in seed_files]
 
 
-def resolve_entry_point(module, stem: str) -> Optional[Callable]:
+def resolve_entry_point(module, stem: str) -> Callable | None:
     """
     Prefer `seed_<suffix>` from the filename (`_001_seed_users` → `seed_users`),
     then common fallbacks (`main`, `seed`).
     """
-    candidates: List[str] = []
+    candidates: list[str] = []
     if "_seed_" in stem:
         suffix = stem.split("_seed_", 1)[1]
         candidates.append(f"seed_{suffix}")
@@ -159,8 +159,7 @@ def main():
     if not seed_scripts:
         print_warning("No seed scripts found in python_seeds/")
         print_info(
-            "Add scripts named like: _001_seed_users.py "
-            "(must start with `_` and contain `_seed_`)"
+            "Add scripts named like: _001_seed_users.py (must start with `_` and contain `_seed_`)"
         )
         sys.exit(1)
 

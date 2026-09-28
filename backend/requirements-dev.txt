@@ -6,4 +6,7 @@ pytest-asyncio==1.4.0       # Async Testing Extension
 pytest-xdist==3.8.0         # Parallel Testing Extension
 
 # Linting Requirements
-pylint==4.0.8
+ruff>=0.16.9
+
+# Schema codegen (dev only)
+supabase-pydantic>=0.26.7

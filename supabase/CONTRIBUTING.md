@@ -38,9 +38,22 @@ After a migration or seed change:
 3. Smoke the dependent package (backend tests and/or `e2e`).
 
 ```bash
+uv run ruff check .
+uv run ruff format --check .
 uv run pytest python_tests/unit
 uv run pytest python_tests/integration   # needs local Supabase; skips if it is down
 ```
+
+After a migration, regenerate types for this repo's public schema (not a product dump):
+
+```bash
+# frontend
+cd ../frontend && pnpm --filter @repo/db run generate
+# backend (needs local Supabase)
+cd ../backend && uv run python scripts/generate_schema.py
+```
+
+See [TESTING.md](./TESTING.md).
 
 ## PRs
 

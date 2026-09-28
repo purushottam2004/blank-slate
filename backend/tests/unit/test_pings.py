@@ -149,10 +149,10 @@ class TestExecute:
             patch.object(executor, "ping_gemini_api_key", new_callable=AsyncMock) as gemini,
             patch.object(executor, "ping_openai_api_key", new_callable=AsyncMock) as openai,
             patch.object(executor, "ping_anthropic_api_key", new_callable=AsyncMock) as anthropic,
-            patch.object(executor, "ping_supabase_connection", new_callable=AsyncMock) as connection,
             patch.object(
-                executor, "ping_supabase_secret_key", new_callable=AsyncMock
-            ) as secret,
+                executor, "ping_supabase_connection", new_callable=AsyncMock
+            ) as connection,
+            patch.object(executor, "ping_supabase_secret_key", new_callable=AsyncMock) as secret,
         ):
             await executor.execute()
 
@@ -169,10 +169,10 @@ class TestExecute:
             patch.object(executor, "ping_gemini_api_key", new_callable=AsyncMock) as gemini,
             patch.object(executor, "ping_openai_api_key", new_callable=AsyncMock) as openai,
             patch.object(executor, "ping_anthropic_api_key", new_callable=AsyncMock) as anthropic,
-            patch.object(executor, "ping_supabase_connection", new_callable=AsyncMock) as connection,
             patch.object(
-                executor, "ping_supabase_secret_key", new_callable=AsyncMock
-            ) as secret,
+                executor, "ping_supabase_connection", new_callable=AsyncMock
+            ) as connection,
+            patch.object(executor, "ping_supabase_secret_key", new_callable=AsyncMock) as secret,
         ):
             await executor.execute()
 

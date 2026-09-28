@@ -6,10 +6,13 @@ Repo-wide rules: [../CONTRIBUTING.md](../CONTRIBUTING.md). Setup: [SETUP_GUIDE.m
 
 ```bash
 cd backend
-uv run pylint .
+uv run ruff check .
+uv run ruff format --check .
 ```
 
-- **Pylint** — static analysis. Required in CI on `backend/**` changes. Fix new warnings before merging.
+- **Ruff** — lint + format. Required with pytest before commit.
+
+Regenerate public-schema models after a migration: `uv run python scripts/generate_schema.py` (local Supabase). See [TESTING.md](./TESTING.md).
 
 ## Adding API routes
 

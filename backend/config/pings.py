@@ -1,4 +1,3 @@
-# pylint: disable=broad-exception-caught
 """
 Module Exposes a function to test if all API and SECURE KEYs are work
 All Ping Functions should be inside the class 'PingsExecutor' and should start with 'ping_'

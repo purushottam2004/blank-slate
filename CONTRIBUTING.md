@@ -18,7 +18,7 @@ Never use system / raw `python` (or `python3`) for this repo. Each Python packag
 | Work | Directory | Run |
 | --- | --- | --- |
 | Anything **supabase** related (seeds, `seed.py`, `unseed.py`, seed scripts, `python_tests/`) | `supabase/` | `uv run …` |
-| Anything **backend** related (API, pytest, pylint, uvicorn) | `backend/` | `uv run …` |
+| Anything **backend** related (API, pytest, ruff, uvicorn) | `backend/` | `uv run …` |
 
 Do not mix them: do not run seeds from `backend/`, and do not run the API or backend tests from `supabase/`. If `.venv` is missing, `uv sync` in that package (see its [SETUP_GUIDE.md](./SETUP_GUIDE.md)).
 
@@ -83,9 +83,9 @@ If the change is trivial and you discovered nothing, still include the heading a
 
 | Touched | Must run before commit |
 | --- | --- |
-| `backend/` | `uv run pylint .`, `uv run pytest tests/unit` (+ `tests/integration` when DB-related) — from `backend/` |
-| `frontend/` | `pnpm lint` |
-| `supabase/` | Apply / validate migrations as needed; `uv run pytest python_tests/unit` from `supabase/`; smoke `uv run python seed.py` when seeds change; keep IDs in sync with backend/e2e |
+| `backend/` | `uv run ruff check .`, `uv run ruff format --check .`, `uv run pytest tests/unit` (+ `tests/integration` when DB-related) — from `backend/` |
+| `frontend/` | `pnpm lint` and `pnpm type-check` |
+| `supabase/` | Apply / validate migrations as needed; `uv run ruff check .`, `uv run ruff format --check .`, `uv run pytest python_tests/unit` from `supabase/`; smoke `uv run python seed.py` when seeds change; keep IDs in sync with backend/e2e |
 | `e2e/` or behaviour covered by Playwright | Relevant `npm run test:…` project(s) |
 | `android/` | `./gradlew test lint` from `android/` (JDK 17 and Android SDK platform 37.2) |
 
@@ -147,7 +147,8 @@ Run the checks for the packages you touched:
 
 ```bash
 cd backend
-uv run pylint .
+uv run ruff check .
+uv run ruff format --check .
 uv run pytest tests/unit   # + tests/integration when DB-related
 ```
 
@@ -158,6 +159,7 @@ Details: [backend/CONTRIBUTING.md](./backend/CONTRIBUTING.md).
 ```bash
 cd frontend
 pnpm lint
+pnpm type-check
 ```
 
 Details: [frontend/CONTRIBUTING.md](./frontend/CONTRIBUTING.md).
@@ -170,6 +172,8 @@ Details: [frontend/CONTRIBUTING.md](./frontend/CONTRIBUTING.md).
 
 ```bash
 cd supabase
+uv run ruff check .
+uv run ruff format --check .
 uv run pytest python_tests/unit
 # uv run pytest python_tests/integration   # needs local Supabase
 ```
@@ -193,6 +197,26 @@ cd android
 ```
 
 JVM unit tests and lint. No emulator. Details: [android/CONTRIBUTING.md](./android/CONTRIBUTING.md).
+
+## Formatters and pre-commit
+
+Install the git hook once per clone (needs the [pre-commit](https://pre-commit.com/) runner, e.g. `uv tool install pre-commit`):
+
+```bash
+pre-commit install
+```
+
+On commit, Ruff lints/formats staged `backend/` and `supabase/` Python, and Prettier runs via `lint-staged` on staged `frontend/` files. Config: [`.pre-commit-config.yaml`](./.pre-commit-config.yaml).
+
+Manual:
+
+```bash
+cd backend && uv run ruff check . && uv run ruff format .
+cd supabase && uv run ruff check . && uv run ruff format .
+cd frontend && pnpm format
+```
+
+CodeRabbit auto-review is on for every base branch ([`.coderabbit.yaml`](./.coderabbit.yaml)).
 
 ## Security
 

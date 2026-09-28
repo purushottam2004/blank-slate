@@ -210,7 +210,8 @@ def main() -> None:
         logger.info("Seeding finished")
 
     logger.info(
-        "Local Supabase is ready | API URL: %s | Studio: %s | DB URL: %s | Env: .env | Re-seed: python seed.py",
+        "Local Supabase is ready | API URL: %s | Studio: %s | DB URL: %s | "
+        "Env: .env | Re-seed: python seed.py",
         status.get("API_URL", "n/a"),
         status.get("STUDIO_URL", "n/a"),
         status.get("DB_URL", "n/a"),

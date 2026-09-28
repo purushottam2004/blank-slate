@@ -69,7 +69,7 @@ def create_app() -> FastAPI:
         )
     elif DEPLOYMENT_ENV == "STAGE":
         # Stage mode: allow Vercel previews and your_domain.com
-        stage_origin_pattern = r"https://.*\.your_domain\.com" r"|https://.*\.vercel\.app"
+        stage_origin_pattern = r"https://.*\.your_domain\.com" + r"|https://.*\.vercel\.app"
         app.add_middleware(
             CORSMiddleware,
             allow_origin_regex=stage_origin_pattern,
@@ -87,7 +87,9 @@ def create_app() -> FastAPI:
     else:
         # Development mode: allow localhost, Vercel previews, and your_domain.com
         dev_origin_pattern = (
-            r"http://(localhost|127\.0\.0\.1)(:\d+)?" r"|https://.*\.vercel\.app" r"|https://.*\.your_domain\.com"
+            r"http://(localhost|127\.0\.0\.1)(:\d+)?"
+            + r"|https://.*\.vercel\.app"
+            + r"|https://.*\.your_domain\.com"
         )
         app.add_middleware(
             CORSMiddleware,

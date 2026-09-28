@@ -1,4 +1,3 @@
-# pylint: disable=broad-exception-caught
 """Shared helpers for environment lookup, retries, and LiteLLM checks."""
 
 import asyncio

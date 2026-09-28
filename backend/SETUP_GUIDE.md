@@ -15,7 +15,7 @@ For the full project flow, see the root [SETUP_GUIDE.md](../SETUP_GUIDE.md). Do 
 From the [`backend/`](./) directory:
 
 ```bash
-# 1. Virtualenv + dependencies (includes the dev group: pytest, pylint)
+# 1. Virtualenv + dependencies (includes the dev group: pytest, ruff)
 uv sync
 
 # 2. Environment
@@ -63,4 +63,10 @@ docker compose up
 
 Configure and start the [frontend](../frontend/SETUP_GUIDE.md). Set `VITE_BACKEND_URL` to `http://127.0.0.1:8080`.
 
-Contribution rules: [CONTRIBUTING.md](./CONTRIBUTING.md).
+Contribution rules: [CONTRIBUTING.md](./CONTRIBUTING.md). Tests: [TESTING.md](./TESTING.md).
+
+After a Supabase migration, regenerate Pydantic models (local Supabase required):
+
+```bash
+uv run python scripts/generate_schema.py
+```
