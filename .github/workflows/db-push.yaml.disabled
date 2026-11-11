@@ -28,5 +28,5 @@ jobs:
 
       - run: supabase link --project-ref $SUPABASE_PROJECT_ID
         working-directory: supabase
-      - run: supabase db push --remote
+      - run: supabase db push --remote --yes
         working-directory: supabase
