@@ -112,7 +112,9 @@ The runner needs Docker (GitHub-hosted `ubuntu-latest` already has it). Local us
 
 ### `db-push.yaml` — Deploy Migrations to Production
 
-Links the Supabase CLI to a hosted project and runs `supabase db push`. Uses the GitHub Environment named `main`.
+Links the Supabase CLI to a hosted project and runs `supabase db push --remote --yes`. Uses the GitHub Environment named `main`.
+
+`--remote` is required. Without it the current CLI pushes to local Docker (`127.0.0.1:54322`), which is not running on a GitHub runner. `--yes` answers the apply prompt, because Actions has no terminal. It does not replay migrations already recorded, and it does not ignore a remote version that has no file in this repo.
 
 Create that environment under **Settings → Environments → New environment** (`main`), then add repository or environment secrets:
 
@@ -127,8 +129,17 @@ Create that environment under **Settings → Environments → New environment** 
 | Triggers | Push to `main` touching `supabase/**`; manual dispatch |
 | Secrets | The three above |
 
-
 Do not enable this until the secrets and `main` environment exist, or the job will fail on an empty project link.
+
+**First hosted project.** Create an empty Supabase project, set the three secrets, enable this workflow, and let `db push` apply `supabase/migrations/`. The version recorded on the database is the timestamp in the filename (`20260724083004_….sql`). Do not apply those files first through the SQL editor or an agent migration tool. Those tools record a different version, and the next `db push` stops with “Remote migration versions not found in local migrations directory.”
+
+If that already happened, mark only that stray version reverted, then push again. The tables can stay. Do not `db pull`; that writes a second copy of the schema into `migrations/`.
+
+```bash
+supabase link --project-ref "$PRODUCTION_PROJECT_ID"
+supabase migration repair --status reverted <version-from-the-error> --remote
+supabase db push --remote --yes
+```
 
 ### `android.yaml` — Android unit tests, lint, and debug APK
 
