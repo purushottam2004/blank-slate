@@ -28,5 +28,8 @@ jobs:
 
       - run: supabase link --project-ref $SUPABASE_PROJECT_ID
         working-directory: supabase
+      # --remote: current CLI otherwise targets local Docker (nothing is listening on the runner).
+      # --yes: Actions has no terminal for the "Apply N migrations?" prompt.
+      # Neither flag replays versions already in schema_migrations.
       - run: supabase db push --remote --yes
         working-directory: supabase
