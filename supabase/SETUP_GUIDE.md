@@ -70,7 +70,7 @@ uv run ruff format --check .
 Both stay **disabled** until you turn them on. The shared login page still renders the buttons.
 
 1. **Google** — set `[auth.external.google] enabled = true` and `SUPABASE_AUTH_EXTERNAL_GOOGLE_CLIENT_ID` / `SUPABASE_AUTH_EXTERNAL_GOOGLE_SECRET` (see [`.env.example`](./.env.example)). Add each app origin to `additional_redirect_urls` and to the Google OAuth client (local defaults: `http://127.0.0.1:5173` and `http://127.0.0.1:5174`). The browser calls `signInWithOAuth({ provider: 'google' })`.
-2. **Phone OTP** — set `[auth.sms] enable_signup = true` and enable an SMS provider (`[auth.sms.twilio]` or `test_otp`). The browser calls `signInWithOtp` / `verifyOtp`. Do not commit Twilio tokens.
+2. **Phone OTP** — set `[auth.sms] enabled = true` and enable an SMS provider (`[auth.sms.twilio]` or `test_otp`). The browser calls `signInWithOtp` / `verifyOtp`. Do not commit Twilio tokens. `enabled` turns the phone provider on. New-user signup for the whole project stays on `[auth] enable_signup`.
 
 Unit tests and lint do not need live Google or Twilio credentials.
 

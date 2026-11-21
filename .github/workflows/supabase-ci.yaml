@@ -1,0 +1,70 @@
+name: Supabase CI
+
+on:
+  push:
+    branches:
+      - main
+      - stage
+    paths:
+      - 'supabase/**'
+  pull_request:
+    paths:
+      - 'supabase/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: Ruff, unit, integration
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: supabase
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          version: "0.12.19"
+          enable-cache: true
+          cache-dependency-glob: supabase/uv.lock
+
+      - name: Install dependencies
+        run: uv sync --frozen
+
+      - name: Ruff
+        run: |
+          uv run ruff check .
+          uv run ruff format --check .
+
+      - name: Unit tests
+        run: uv run pytest python_tests/unit -v --tb=short
+
+      - name: Install Supabase CLI
+        uses: supabase/setup-cli@v1
+        with:
+          version: latest
+
+      - name: Start local Supabase
+        run: supabase start
+
+      - name: Get Supabase credentials
+        id: supabase
+        run: |
+          echo "url=$(supabase status --output json | jq -r '.API_URL')" >> $GITHUB_OUTPUT
+          echo "secret_key=$(supabase status --output json | jq -r '.SECRET_KEY')" >> $GITHUB_OUTPUT
+
+      - name: Integration tests
+        env:
+          SUPABASE_URL: ${{ steps.supabase.outputs.url }}
+          SUPABASE_SECRET_KEY: ${{ steps.supabase.outputs.secret_key }}
+        run: uv run pytest python_tests/integration -v --tb=short
+
+      - name: Stop Supabase
+        if: always()
+        run: supabase stop
