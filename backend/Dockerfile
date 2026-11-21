@@ -1,4 +1,4 @@
-FROM python:3.12-slim-bookworm
+FROM python:3.15-slim-bookworm
 
 # Pin the same uv release used to generate uv.lock
 COPY --from=ghcr.io/astral-sh/uv:0.12.19 /uv /uvx /bin/
