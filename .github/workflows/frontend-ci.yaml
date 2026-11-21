@@ -1,4 +1,4 @@
-name: Frontend Lint (pnpm lint)
+name: Frontend CI
 
 on:
   push:
@@ -13,8 +13,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  lint:
-    name: Lint Frontend
+  check:
+    name: Lint, type-check, build
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -44,3 +44,13 @@ jobs:
 
       - name: Type-check
         run: pnpm type-check
+
+      - name: Create .env from .env.example
+        run: cp .env.example .env
+
+      - name: Build
+        run: pnpm build
+        env:
+          VITE_SUPABASE_URL: https://placeholder.supabase.co
+          VITE_SUPABASE_PUBLISHABLE_KEY: placeholder-publishable-key
+          VITE_BACKEND_URL: http://127.0.0.1:8080
