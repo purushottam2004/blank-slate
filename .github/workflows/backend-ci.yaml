@@ -1,0 +1,97 @@
+name: Backend CI
+
+on:
+  push:
+    branches:
+      - main
+      - stage
+    paths:
+      - 'backend/**'
+      - 'supabase/**'
+      - '.github/workflows/backend-ci.yaml'
+  pull_request:
+    paths:
+      - 'backend/**'
+      - 'supabase/**'
+      - '.github/workflows/backend-ci.yaml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: Lint, Test, Typecheck
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          version: "0.12.19"
+          enable-cache: true
+          cache-dependency-glob: |
+            backend/uv.lock
+            supabase/uv.lock
+
+      - name: Install backend dependencies
+        working-directory: backend
+        run: uv sync --frozen
+
+      - name: Lint
+        working-directory: backend
+        run: |
+          uv run ruff check .
+          uv run ruff format --check .
+
+      - name: Typecheck
+        working-directory: backend
+        run: uv run mypy .
+
+      - name: Unit tests
+        working-directory: backend
+        run: uv run pytest tests/unit/ -n auto -v --tb=short
+
+      - name: Install Supabase CLI
+        uses: supabase/setup-cli@v1
+        with:
+          version: latest
+
+      - name: Start local Supabase
+        working-directory: supabase
+        run: supabase start
+
+      - name: Get Supabase credentials
+        id: supabase
+        working-directory: supabase
+        run: |
+          echo "url=$(supabase status --output json | jq -r '.API_URL')" >> $GITHUB_OUTPUT
+          echo "publishable_key=$(supabase status --output json | jq -r '.PUBLISHABLE_KEY')" >> $GITHUB_OUTPUT
+          echo "secret_key=$(supabase status --output json | jq -r '.SECRET_KEY')" >> $GITHUB_OUTPUT
+
+      - name: Seed test data
+        working-directory: supabase
+        run: |
+          uv sync --frozen --no-dev
+          uv run python seed.py
+        env:
+          SUPABASE_URL: ${{ steps.supabase.outputs.url }}
+          SUPABASE_PUBLISHABLE_KEY: ${{ steps.supabase.outputs.publishable_key }}
+          SUPABASE_SECRET_KEY: ${{ steps.supabase.outputs.secret_key }}
+
+      - name: Integration tests
+        working-directory: backend
+        env:
+          SUPABASE_URL: ${{ steps.supabase.outputs.url }}
+          SUPABASE_PUBLISHABLE_KEY: ${{ steps.supabase.outputs.publishable_key }}
+          SUPABASE_SECRET_KEY: ${{ steps.supabase.outputs.secret_key }}
+          GEMINI_API_KEY: mock-api-key
+          DEPLOYMENT_ENV: LOCAL
+        run: uv run pytest tests/integration/ -v --tb=short
+
+      - name: Stop Supabase
+        if: always()
+        working-directory: supabase
+        run: supabase stop
