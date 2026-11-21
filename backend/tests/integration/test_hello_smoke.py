@@ -74,5 +74,6 @@ def test_seeded_user_hello_and_public_users_row(
     )
     assert profile.data, f"missing public.users row for {TEST_USER_EMAIL}"
     row = profile.data[0]
+    assert isinstance(row, dict)
     assert row["id"] == TEST_USER_ID
     assert row["username"] == TEST_USERNAME
