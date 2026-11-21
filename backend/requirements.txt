@@ -1,11 +1,11 @@
 # Web Requirements
-fastapi==0.139.2
-uvicorn==0.51.0
-supabase==2.31.0
+fastapi==0.164.0
+uvicorn==0.54.0
+supabase==2.34.1
 
 # Functional Requirements
-litellm==1.92.0
+litellm==1.110.0
 
 # Utility Requirements
-python-dotenv==1.2.2
-python-json-logger==4.1.0
+python-dotenv==1.2.4
+python-json-logger==4.2.0
