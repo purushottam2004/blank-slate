@@ -40,7 +40,6 @@ jobs:
           fi
           yes | "$sdkmanager" --sdk_root="$sdk_root" --licenses || true
           "$sdkmanager" --sdk_root="$sdk_root" \
-            "platforms;android-37" \
             "platforms;android-37.2" \
             "build-tools;36.0.0" \
             "build-tools;37.0.0" \

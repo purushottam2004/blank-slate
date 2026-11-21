@@ -126,7 +126,7 @@ One job. Steps, in order: `pnpm lint`, `pnpm type-check`, and `pnpm test` in `re
 
 ### `react-native-apk.yaml` — React Native debug APK
 
-Generates the Android project with `expo prebuild`, runs `./gradlew assembleDebug`, and uploads `app-debug.apk`. Needs JDK 17 and the runner Android SDK (platform 37, build-tools 37.0.0, NDK 27.1.12297006). It does not start an emulator. Run it from the Actions tab when you want to confirm an APK builds.
+Generates the Android project with `expo prebuild`, runs `./gradlew assembleDebug`, and uploads `app-debug.apk`. Needs JDK 17 and the runner Android SDK (platform 37.2, build-tools 37.0.0, NDK 27.1.12297006). It does not start an emulator. Run it from the Actions tab when you want to confirm an APK builds.
 
 | | |
 | --- | --- |
