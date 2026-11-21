@@ -7,9 +7,11 @@ on:
       - stage
     paths:
       - 'frontend/**'
+      - '.github/workflows/frontend-ci.yaml'
   pull_request:
     paths:
       - 'frontend/**'
+      - '.github/workflows/frontend-ci.yaml'
   workflow_dispatch:
 
 jobs:
