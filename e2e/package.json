@@ -22,6 +22,6 @@
     "@playwright/test": "^1.65.1",
     "@types/node": "^26.6.6",
     "dotenv": "^18.0.10",
-    "typescript": "^5.9.3"
+    "typescript": "~6.0.3"
   }
 }
