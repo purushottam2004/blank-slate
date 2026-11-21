@@ -23,7 +23,7 @@ CI is pinned to the same minimums as the root setup guide:
 
 | Tool | CI pin | Repo requirement |
 | --- | --- | --- |
-| Python | `3.13` | ≥ 3.13 |
+| Python | 3.12 from each package’s `.python-version` | Installed by `uv sync` / `uv run`. No `actions/setup-python` step |
 | Node.js | `22` | ≥ 22.13 |
 | pnpm | `11.17.0` | ^11.17 |
 | JDK | `17` | 17 (Android builds) |

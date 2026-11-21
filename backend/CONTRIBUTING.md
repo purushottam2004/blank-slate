@@ -8,9 +8,10 @@ Repo-wide rules: [../CONTRIBUTING.md](../CONTRIBUTING.md). Setup: [SETUP_GUIDE.m
 cd backend
 uv run ruff check .
 uv run ruff format --check .
+uv run mypy .
 ```
 
-- **Ruff** — lint + format. Required with pytest before commit.
+- **Ruff** — lint + format. **mypy** — typecheck. Both are required with pytest before commit.
 
 Regenerate public-schema models after a migration: `uv run python scripts/generate_schema.py` (local Supabase). See [TESTING.md](./TESTING.md).
 

@@ -16,6 +16,7 @@ Quality bar also includes:
 ```bash
 uv run ruff check .
 uv run ruff format --check .
+uv run mypy .
 ```
 
 ## What to add
