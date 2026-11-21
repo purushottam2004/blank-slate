@@ -15,6 +15,7 @@ Install these before starting:
 | [pnpm](https://pnpm.io/installation)                                                   | ^11.17                     |
 | [Supabase CLI](https://supabase.com/docs/guides/local-development/cli/getting-started) | Latest Version             |
 | JDK 17 and Android SDK platform 37.2 | Only for the Android app. See [android/SETUP_GUIDE.md](./android/SETUP_GUIDE.md) |
+| Xcode 26.4+ and, for the Android emulator, Android Studio | Only for the Expo app. See [react-native/SETUP_GUIDE.md](./react-native/SETUP_GUIDE.md) |
 
 
 ## Setup order
@@ -24,6 +25,7 @@ Install these before starting:
 3. **Frontend** — [frontend/SETUP_GUIDE.md](./frontend/SETUP_GUIDE.md)
 4. **E2E** (optional) — [e2e/README.md](./e2e/README.md)
 5. **Android** (optional) — [android/SETUP_GUIDE.md](./android/SETUP_GUIDE.md)
+6. **React Native** (optional) — [react-native/SETUP_GUIDE.md](./react-native/SETUP_GUIDE.md)
 
 After Supabase is up, copy values from [`supabase/.env`](./supabase/.env) (created by `setup.py`) into the backend and frontend env files. See each package guide for the exact variable names.
 
@@ -58,9 +60,9 @@ To run the same path in a browser automatically: [e2e/README.md](./e2e/README.md
 
 ## GitHub Actions
 
-Testing and linting GitHub Actions are enabled: frontend lint/build, backend Ruff and pytest (unit and integration), Playwright e2e, and Android unit tests plus a debug APK. Supabase `db push` stays disabled until you opt in. Details are in [`.github/workflows/`](./.github/workflows/).
+Testing and linting GitHub Actions are one workflow per area: `backend-ci.yaml` (Ruff, unit, integration), `frontend-ci.yaml` (lint, type-check, build), `supabase-ci.yaml` (Ruff, unit, integration), plus Playwright e2e, Android unit tests and a debug APK, and React Native lint, type-check, and unit tests. Supabase `db push` stays disabled until you opt in. Details are in [`.github/workflows/`](./.github/workflows/).
 
-What each workflow does, the versions it pins (Python ≥ 3.13, Node ≥ 22.13, pnpm ^11.17), and how to turn it on are in [`.github/workflows/SETUP.md`](./.github/workflows/SETUP.md).
+What each workflow does, the versions it pins (Python 3.12 via uv, Node ≥ 22.13, pnpm ^11.17), and how to turn it on are in [`.github/workflows/SETUP.md`](./.github/workflows/SETUP.md).
 
 ## Package guides
 
@@ -69,6 +71,7 @@ What each workflow does, the versions it pins (Python ≥ 3.13, Node ≥ 22.13, 
 - [Frontend setup](./frontend/SETUP_GUIDE.md)
 - [E2E tests](./e2e/README.md)
 - [Android setup](./android/SETUP_GUIDE.md)
+- [React Native setup](./react-native/SETUP_GUIDE.md)
 - [Contributing](./CONTRIBUTING.md)
 - [Agent instructions](./AGENTS.md) (Cursor + Claude Code: [CONTRIBUTING.md — Agent guidance](./CONTRIBUTING.md#agent-guidance))
 - [GitHub Actions setup](./.github/workflows/SETUP.md)

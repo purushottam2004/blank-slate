@@ -11,6 +11,7 @@ Package inventories:
 | [supabase/TESTING.md](./supabase/TESTING.md) | Seed/unseed unit tests and optional local integration smoke |
 | [e2e/TESTING.md](./e2e/TESTING.md) | Playwright (`web` + `web2`) |
 | [android/TESTING.md](./android/TESTING.md) | JVM unit tests and lint |
+| [react-native/TESTING.md](./react-native/TESTING.md) | Node unit tests, ESLint, and `tsc` |
 
 How to run a suite: each package [CONTRIBUTING](./CONTRIBUTING.md) and [SETUP_GUIDE.md](./SETUP_GUIDE.md). Python packages use `uv run` from that directory, never raw `python`.
 
@@ -72,6 +73,17 @@ JVM unit tests. No emulator.
 ```bash
 cd android
 ./gradlew test lint
+```
+
+### React Native
+
+Node unit tests. No simulator.
+
+```bash
+cd react-native
+pnpm lint
+pnpm type-check
+pnpm test
 ```
 
 ## Test creation guidelines

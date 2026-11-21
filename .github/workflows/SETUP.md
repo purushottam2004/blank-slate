@@ -31,19 +31,19 @@ CI is pinned to the same minimums as the root setup guide:
 
 ## Workflows
 
-### `frontend-lint.yaml` — Frontend Lint
+### `backend-ci.yaml` — Backend CI
 
-Runs `pnpm lint` and `pnpm type-check` in `frontend/`.
+One job. Steps, in order: Ruff (`ruff check` and `ruff format --check`), `mypy .`, `pytest tests/unit/`, then integration. Integration starts local Supabase, seeds it, and runs `pytest tests/integration/` with `SUPABASE_URL`, `SUPABASE_PUBLISHABLE_KEY`, and `SUPABASE_SECRET_KEY`. uv is pinned to `0.12.19`. The runner needs Docker.
 
 | | |
 | --- | --- |
-| Triggers | Push/PR touching `frontend/**` on `main` or `stage`; manual dispatch |
+| Triggers | Push/PR touching `backend/**` or `supabase/**` on `main` or `stage`; manual dispatch |
 | Secrets | None |
 
 
-### `frontend-build.yaml` — Frontend Build
+### `frontend-ci.yaml` — Frontend CI
 
-Runs `pnpm build` in `frontend/`. Copies `frontend/.env.example` to `.env`, then injects placeholder Vite env so the build can resolve `import.meta.env` without real credentials:
+One job. Steps, in order: `pnpm lint`, `pnpm type-check`, then `pnpm build`. The build copies `frontend/.env.example` to `.env` and injects placeholder Vite env so the build can resolve `import.meta.env` without real credentials:
 
 - `VITE_SUPABASE_URL`
 - `VITE_SUPABASE_PUBLISHABLE_KEY`
@@ -55,39 +55,13 @@ Runs `pnpm build` in `frontend/`. Copies `frontend/.env.example` to `.env`, then
 | Secrets | None |
 
 
-### `ruff.yaml` — Backend Lint
+### `supabase-ci.yaml` — Supabase CI
 
-Runs `uv sync --frozen`, then `uv run ruff check .` and `uv run ruff format --check .` in `backend/`. uv is pinned to `0.12.19`, the same release as the backend image.
-
-| | |
-| --- | --- |
-| Triggers | Push/PR touching `backend/**` on `main` or `stage`; manual dispatch |
-| Secrets | None |
-
-
-### `pytest-unit.yaml` — Backend Unit Tests
-
-Runs `uv run pytest tests/unit/ -n auto` in `backend/` so pytest-xdist uses every core on the runner.
+One job. Steps, in order: Ruff, `pytest python_tests/unit`, then integration. Integration starts local Supabase and runs `pytest python_tests/integration` with `SUPABASE_URL` and `SUPABASE_SECRET_KEY`. The runner needs Docker.
 
 | | |
 | --- | --- |
-| Triggers | Push/PR touching `backend/**` on `main` or `stage`; manual dispatch |
-| Secrets | None |
-
-
-### `pytest-integration.yaml` — Backend Integration Tests
-
-Starts local Supabase, reads `PUBLISHABLE_KEY` and `SECRET_KEY` from `supabase status`, then runs `pytest tests/integration/` with:
-
-- `SUPABASE_URL`
-- `SUPABASE_PUBLISHABLE_KEY`
-- `SUPABASE_SECRET_KEY`
-
-The runner needs Docker (GitHub-hosted `ubuntu-latest` already has it).
-
-| | |
-| --- | --- |
-| Triggers | Push/PR touching `backend/**` or `supabase/**` on `main` or `stage`; manual dispatch |
+| Triggers | Push/PR touching `supabase/**` on `main` or `stage`; manual dispatch |
 | Secrets | None |
 
 
@@ -137,4 +111,24 @@ Uses the GitHub runner’s preinstalled Android SDK (`ANDROID_SDK_ROOT`, usually
 | | |
 | --- | --- |
 | Triggers | Push/PR touching `android/**` on `main` or `stage`; manual dispatch |
+| Secrets | None |
+
+
+### `react-native.yaml` — React Native checks
+
+One job. Steps, in order: `pnpm lint`, `pnpm type-check`, and `pnpm test` in `react-native/`. The unit test is a Node script. It does not start a simulator and does not need Supabase credentials.
+
+| | |
+| --- | --- |
+| Triggers | Push/PR touching `react-native/**` on `main` or `stage`; manual dispatch |
+| Secrets | None |
+
+
+### `react-native-apk.yaml` — React Native debug APK
+
+Generates the Android project with `expo prebuild`, runs `./gradlew assembleDebug`, and uploads `app-debug.apk`. Needs JDK 17 and the runner Android SDK (platform 37, build-tools 37.0.0, NDK 27.1.12297006). It does not start an emulator. Run it from the Actions tab when you want to confirm an APK builds.
+
+| | |
+| --- | --- |
+| Triggers | Manual dispatch only |
 | Secrets | None |

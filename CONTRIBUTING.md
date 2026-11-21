@@ -10,6 +10,7 @@ Thanks for contributing. This file is the **repo-wide** workflow. Language- and 
 | Frontend (TypeScript / React) | [frontend/CONTRIBUTING.md](./frontend/CONTRIBUTING.md) |
 | Database (Supabase) | [supabase/CONTRIBUTING.md](./supabase/CONTRIBUTING.md) |
 | Android (Kotlin / Compose) | [android/CONTRIBUTING.md](./android/CONTRIBUTING.md) |
+| React Native (Expo) | [react-native/CONTRIBUTING.md](./react-native/CONTRIBUTING.md) |
 
 ## Python virtualenvs
 
@@ -83,11 +84,12 @@ If the change is trivial and you discovered nothing, still include the heading a
 
 | Touched | Must run before commit |
 | --- | --- |
-| `backend/` | `uv run ruff check .`, `uv run ruff format --check .`, `uv run pytest tests/unit` (+ `tests/integration` when DB-related) — from `backend/` |
+| `backend/` | `uv run ruff check .`, `uv run ruff format --check .`, `uv run mypy .`, `uv run pytest tests/unit` (+ `tests/integration` when DB-related) — from `backend/` |
 | `frontend/` | `pnpm lint` and `pnpm type-check` |
 | `supabase/` | Apply / validate migrations as needed; `uv run ruff check .`, `uv run ruff format --check .`, `uv run pytest python_tests/unit` from `supabase/`; smoke `uv run python seed.py` when seeds change; keep IDs in sync with backend/e2e |
 | `e2e/` or behaviour covered by Playwright | Relevant `npm run test:…` project(s) |
 | `android/` | `./gradlew test lint` from `android/` (JDK 17 and Android SDK platform 37.2) |
+| `react-native/` | `pnpm lint`, `pnpm type-check`, and `pnpm test` from `react-native/` |
 
 If a check fails, **fix it and create a new commit** only after green (or update the PR description with an explicit waiver only when the team agrees). Skipping these because the change “looks fine” is not allowed.
 
@@ -149,6 +151,7 @@ Run the checks for the packages you touched:
 cd backend
 uv run ruff check .
 uv run ruff format --check .
+uv run mypy .
 uv run pytest tests/unit   # + tests/integration when DB-related
 ```
 
@@ -197,6 +200,17 @@ cd android
 ```
 
 JVM unit tests and lint. No emulator. Details: [android/CONTRIBUTING.md](./android/CONTRIBUTING.md).
+
+**React Native**
+
+```bash
+cd react-native
+pnpm lint
+pnpm type-check
+pnpm test
+```
+
+Node unit tests, ESLint, and `tsc`. No simulator. Details: [react-native/CONTRIBUTING.md](./react-native/CONTRIBUTING.md).
 
 ## Formatters and pre-commit
 

@@ -5,6 +5,7 @@ This repo is a template with:
 - **Backend** — FastAPI (Python)
 - **Frontend** — React + TypeScript (Vite, pnpm workspace)
 - **Android** — Kotlin + Jetpack Compose (Gradle)
+- **React Native** — Expo (iOS, Android, and web from one codebase)
 - **Database** — Supabase (managed Postgres + Auth)
 - **E2E** — Playwright (`web` + `web2`)
 
@@ -44,6 +45,7 @@ Package-level docs:
 | [supabase/](./supabase/) | — | [SETUP](./supabase/SETUP_GUIDE.md) | [CONTRIBUTING](./supabase/CONTRIBUTING.md) |
 | [e2e/](./e2e/) | [README](./e2e/README.md) | — | — |
 | [android/](./android/) | [README](./android/README.md) | [SETUP](./android/SETUP_GUIDE.md) | [CONTRIBUTING](./android/CONTRIBUTING.md) |
+| [react-native/](./react-native/) | [README](./react-native/README.md) | [SETUP](./react-native/SETUP_GUIDE.md) | [CONTRIBUTING](./react-native/CONTRIBUTING.md) |
 
 ## Quick start
 
