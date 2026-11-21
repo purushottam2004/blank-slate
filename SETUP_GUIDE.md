@@ -60,7 +60,7 @@ To run the same path in a browser automatically: [e2e/README.md](./e2e/README.md
 
 ## GitHub Actions
 
-Testing and linting GitHub Actions are one workflow per area: `backend-ci.yaml` (Ruff, unit, integration), `frontend-ci.yaml` (lint, type-check, build), `supabase-ci.yaml` (Ruff, unit, integration), plus Playwright e2e, Android unit tests and a debug APK, and React Native lint, type-check, and unit tests. Supabase `db push` stays disabled until you opt in. Details are in [`.github/workflows/`](./.github/workflows/).
+Testing and linting GitHub Actions are one workflow per area: `backend-ci.yaml` (Ruff, unit, integration), `frontend-ci.yaml` (lint, type-check, build), `supabase-ci.yaml` (Ruff, unit, integration), plus Playwright e2e, Android unit tests and a debug APK, and React Native lint, type-check, and unit tests. Supabase CD (`supabase-cd.yaml.disabled`) stays disabled until you opt in. Details are in [`.github/workflows/`](./.github/workflows/).
 
 What each workflow does, the versions it pins (Python 3.12 via uv, Node ≥ 22.13, pnpm ^11.17), and how to turn it on are in [`.github/workflows/SETUP.md`](./.github/workflows/SETUP.md).
 

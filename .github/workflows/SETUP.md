@@ -84,7 +84,7 @@ The runner needs Docker (GitHub-hosted `ubuntu-latest` already has it). Local us
 | Secrets | None |
 
 
-### `db-push.yaml` — Deploy Migrations to Production
+### `supabase-cd.yaml` — Deploy Migrations to Production
 
 Links the Supabase CLI to a hosted project and runs `supabase db push`. Uses the GitHub Environment named `main`.
 
