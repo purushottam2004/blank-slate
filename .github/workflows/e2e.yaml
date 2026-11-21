@@ -26,22 +26,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v6
         with:
           version: 11.17.0
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: 22
           cache: "pnpm"
           cache-dependency-path: frontend/pnpm-lock.yaml
 
       - name: Install uv
-        uses: astral-sh/setup-uv@v6
+        uses: astral-sh/setup-uv@v7
         with:
           version: "0.12.19"
           enable-cache: true
@@ -58,7 +58,7 @@ jobs:
         run: npm ci
 
       - name: Install Supabase CLI
-        uses: supabase/setup-cli@v1
+        uses: supabase/setup-cli@v3
         with:
           version: latest
 
@@ -96,7 +96,7 @@ jobs:
           nohup uv run python main.py > /tmp/backend.log 2>&1 &
           timeout 60 bash -c 'until curl -sf http://127.0.0.1:8080/ >/dev/null; do sleep 1; done' || (echo "Backend failed to start. Logs:" && cat /tmp/backend.log && exit 1)
 
-      - uses: actions/cache@v4
+      - uses: actions/cache@v6
         with:
           path: ~/.cache/ms-playwright
           key: playwright-${{ runner.os }}
@@ -116,7 +116,7 @@ jobs:
           npx playwright install --with-deps chromium
           npx playwright test
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: playwright-report
