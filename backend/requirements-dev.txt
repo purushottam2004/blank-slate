@@ -1,13 +1,13 @@
 -r requirements.txt
 
 # Testing Requirements
-pytest==9.1.1               # Basic Testing Framework
-pytest-asyncio==1.4.0       # Async Testing Extension
+pytest==9.2.0               # Basic Testing Framework
+pytest-asyncio==1.5.0       # Async Testing Extension
 pytest-xdist==3.8.0         # Parallel Testing Extension
 
 # Linting Requirements
-ruff>=0.16.9
+ruff>=0.17.5
 mypy>=2.4.1
 
 # Schema codegen (dev only)
-supabase-pydantic>=0.26.7
+supabase-pydantic>=0.26.29
