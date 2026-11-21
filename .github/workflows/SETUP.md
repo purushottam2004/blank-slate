@@ -132,3 +132,16 @@ Generates the Android project with `expo prebuild`, runs `./gradlew assembleDebu
 | --- | --- |
 | Triggers | Manual dispatch only |
 | Secrets | None |
+
+## Dependabot
+
+[`.github/dependabot.yaml`](../dependabot.yaml) opens weekly version-update pull requests. Minor and patch updates are grouped. Major updates stay as their own pull requests.
+
+| Ecosystem | Directories |
+| --- | --- |
+| GitHub Actions | `.github/workflows/` |
+| uv | `backend/`, `supabase/` |
+| npm / pnpm | `frontend/`, `react-native/`, `e2e/` |
+| Gradle | `android/` |
+| Docker | `backend/Dockerfile` |
+| pre-commit | `.pre-commit-config.yaml` |
