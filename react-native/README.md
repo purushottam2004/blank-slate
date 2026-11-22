@@ -1,6 +1,6 @@
 # React Native
 
-Expo app for Gym Rats. One TypeScript codebase runs on iOS, Android, and the web. It signs in with Supabase and reads and writes the Gym Rats tables there. FastAPI is not part of this product.
+Expo app (SDK 58) that signs in with Supabase and calls the FastAPI `GET /api/v1/hello` route. One TypeScript codebase runs on iOS, Android, and the web. It sits next to `frontend/` and `android/` because Metro is its own bundler. Those directories are unchanged.
 
 The folder is `react-native/`. The npm package name is `blankslate-react-native`, because the name `react-native` is the library this app depends on.
 

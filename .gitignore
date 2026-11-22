@@ -5,9 +5,6 @@
 temp/
 TODO
 
-# Screen proposals (Stageshow kit, preview app, and its node_modules)
-design/
-
 # Claude Code local overrides (not shared with the team)
 .claude/settings.local.json
 CLAUDE.local.md

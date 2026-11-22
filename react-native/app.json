@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "Gym Rats",
+    "name": "Blank Slate",
     "slug": "blankslate-react-native",
     "scheme": "blankslate",
     "version": "1.0.0",
@@ -10,13 +10,7 @@
     "plugins": [
       "expo-router",
       "expo-sqlite",
-      "expo-status-bar",
-      [
-        "expo-image-picker",
-        {
-          "photosPermission": "Gym Rats uses photos you choose for your profile and posts."
-        }
-      ]
+      "expo-status-bar"
     ],
     "experiments": {
       "typedRoutes": true

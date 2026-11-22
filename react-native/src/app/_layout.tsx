@@ -13,7 +13,7 @@ function Navigation() {
     if (!ready || configError) return
     const onLogin = segments[0] === 'login'
     if (!session && !onLogin) router.replace('/login')
-    if (session && onLogin) router.replace('/diet')
+    if (session && onLogin) router.replace('/')
   }, [ready, session, configError, segments, router])
 
   if (!ready) {
@@ -33,20 +33,9 @@ function Navigation() {
   }
 
   return (
-    <Stack screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="login" />
-      <Stack.Screen name="index" />
-      <Stack.Screen name="(tabs)" />
-      <Stack.Screen name="add-food" />
-      <Stack.Screen name="new-food" />
-      <Stack.Screen name="add-set" />
-      <Stack.Screen name="new-lift" />
-      <Stack.Screen name="new-group" />
-      <Stack.Screen name="new-post" />
-      <Stack.Screen name="edit-name" />
-      <Stack.Screen name="edit-photo" />
-      <Stack.Screen name="group/[id]" />
-      <Stack.Screen name="member/[id]" />
+    <Stack>
+      <Stack.Screen name="login" options={{ title: 'Sign in' }} />
+      <Stack.Screen name="index" options={{ title: 'Home' }} />
     </Stack>
   )
 }

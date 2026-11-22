@@ -3,8 +3,8 @@ import { StyleSheet } from 'react-native'
 export const screen = StyleSheet.create({
   page: {
     flex: 1,
-    backgroundColor: '#f5f5f4',
-    padding: 16,
+    backgroundColor: '#ffffff',
+    padding: 24,
     gap: 12,
   },
   centered: {
@@ -68,71 +68,5 @@ export const screen = StyleSheet.create({
     padding: 12,
     fontSize: 13,
     color: '#111827',
-  },
-  card: {
-    backgroundColor: '#ffffff',
-    borderRadius: 16,
-    overflow: 'hidden',
-  },
-  row: {
-    paddingHorizontal: 16,
-    paddingVertical: 14,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    gap: 12,
-    borderTopWidth: 1,
-    borderTopColor: '#f0eeeb',
-  },
-  rowFirst: {
-    borderTopWidth: 0,
-  },
-  rowTitle: {
-    fontSize: 17,
-    color: '#1c1917',
-    fontWeight: '600',
-  },
-  rowMeta: {
-    fontSize: 17,
-    color: '#1c1917',
-    fontWeight: '600',
-  },
-  muted: {
-    fontSize: 15,
-    color: '#78716c',
-  },
-  add: {
-    paddingHorizontal: 16,
-    paddingVertical: 14,
-    borderTopWidth: 1,
-    borderTopColor: '#f0eeeb',
-  },
-  addText: {
-    color: '#c2410c',
-    fontSize: 17,
-    fontWeight: '600',
-  },
-  save: {
-    backgroundColor: '#1c1917',
-    borderRadius: 14,
-    paddingVertical: 14,
-    alignItems: 'center',
-  },
-  codeCard: {
-    backgroundColor: '#1c1917',
-    borderRadius: 16,
-    padding: 18,
-    gap: 8,
-  },
-  codeValue: {
-    color: '#fafaf9',
-    fontSize: 40,
-    fontWeight: '700',
-    letterSpacing: 3,
-  },
-  dayRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
   },
 })

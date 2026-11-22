@@ -11,13 +11,12 @@
     "web": "expo start --web",
     "lint": "eslint .",
     "type-check": "tsc --noEmit && tsc --noEmit -p tsconfig.test.json",
-    "test": "node --experimental-strip-types --test src/lib/devHost.test.ts src/lib/localDate.test.ts"
+    "test": "node --experimental-strip-types --test src/lib/devHost.test.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.119.2",
     "expo": "~58.0.26",
     "expo-constants": "~58.0.16",
-    "expo-image-picker": "~58.0.10",
     "expo-linking": "~58.0.17",
     "expo-router": "~58.0.32",
     "expo-sqlite": "~58.0.18",
