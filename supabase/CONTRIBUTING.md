@@ -29,6 +29,12 @@ If you want to **test on custom data** without changing committed seeds, write a
 
 These files are **gitignored** (`python_seeds/_local_seed_*.py`). Do not commit them; keep shared fixtures in the numbered `_NNN_seed_*.py` / `data/` modules instead.
 
+## Edge functions
+
+- Source lives in `functions/<name>/index.ts`. Create one with `supabase functions new <name>` from the repo root. The CLI adds `[functions.<name>]` in `config.toml`.
+- `hello_world` sets `verify_jwt = false` so callers can send the publishable or secret key on `apikey`. Leave `verify_jwt = true` for a function that is only called with a user JWT.
+- `supabase functions new` writes the current local publishable key into the sample curl. Replace it with a placeholder before committing.
+
 ## Validation
 
 After a migration or seed change:

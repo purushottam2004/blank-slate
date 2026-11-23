@@ -74,6 +74,25 @@ Both stay **disabled** until you turn them on. The shared login page still rende
 
 Unit tests and lint do not need live Google or Twilio credentials.
 
+### Edge Functions
+
+[`functions/hello_world`](./functions/hello_world/index.ts) is a dummy function. After `supabase start` (or `uv run python setup.py`), it is served at `http://127.0.0.1:54321/functions/v1/hello_world`.
+
+The handler accepts the publishable or secret key on the `apikey` header. `[functions.hello_world]` sets `verify_jwt = false` because those keys are not user JWTs; `withSupabase` checks the key. POST a JSON body with `name`:
+
+```bash
+curl -i --request POST 'http://127.0.0.1:54321/functions/v1/hello_world' \
+  --header "apikey: $SUPABASE_PUBLISHABLE_KEY" \
+  --header 'Content-Type: application/json' \
+  --data '{"name":"Functions"}'
+```
+
+Expected body: `{"message":"Hello Functions!"}`. The first call can be slow while the edge runtime fetches `@supabase/server`.
+
+Create another function from the repo root with `supabase functions new <name>`. That writes `functions/<name>/` and a `[functions.<name>]` block in [`config.toml`](./config.toml). While editing, `supabase functions serve <name>` hot-reloads that function.
+
+`supabase functions new` pastes the current local publishable key into the sample curl in `index.ts`. Replace that value with a placeholder before committing.
+
 ### Regenerate types after a migration
 
 ```bash
@@ -91,6 +110,7 @@ The login page loads `seed_assets/login-photo.svg` from the public Storage URL (
 | Service | Typical local URL |
 | --- | --- |
 | API | `http://127.0.0.1:54321` |
+| Edge Functions | `http://127.0.0.1:54321/functions/v1/hello_world` |
 | MCP | `http://127.0.0.1:54321/mcp` |
 | Studio | `http://127.0.0.1:54323` |
 | DB | `postgresql://postgres:postgres@127.0.0.1:54322/postgres` |

@@ -57,7 +57,7 @@ One job. Steps, in order: `pnpm lint`, `pnpm type-check`, then `pnpm build`. The
 
 ### `supabase-ci.yaml` — Supabase CI
 
-One job. Steps, in order: Ruff, `pytest python_tests/unit`, then integration. Integration starts local Supabase and runs `pytest python_tests/integration` with `SUPABASE_URL` and `SUPABASE_SECRET_KEY`. The runner needs Docker.
+One job. Steps, in order: Ruff, `pytest python_tests/unit`, then integration. Integration starts local Supabase and runs `pytest python_tests/integration` with `SUPABASE_URL` and `SUPABASE_SECRET_KEY`, including a POST to the `hello_world` Edge Function. The runner needs Docker.
 
 | | |
 | --- | --- |
@@ -84,9 +84,9 @@ The runner needs Docker (GitHub-hosted `ubuntu-latest` already has it). Local us
 | Secrets | None |
 
 
-### `supabase-cd.yaml` — Deploy Migrations to Production
+### `supabase-cd.yaml` — Deploy database and Edge Functions to production
 
-Links the Supabase CLI to a hosted project and runs `supabase db push`. Uses the GitHub Environment named `main`.
+Links the Supabase CLI to a hosted project, runs `supabase db push --remote --yes`, then `supabase functions deploy --yes` (every function under `supabase/functions/`). On CLI v3, `db push` without `--remote` applies to the local database. `--remote` uses the linked project (`SUPABASE_PROJECT_ID`). `--yes` accepts the hosted-change prompt, including the one for `hello_world` where `verify_jwt` is false, so the job does not wait for input. Uses the GitHub Environment named `main`. The access token needs permission to push migrations and to deploy Edge Functions.
 
 Create that environment under **Settings → Environments → New environment** (`main`), then add repository or environment secrets:
 

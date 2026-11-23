@@ -7,7 +7,7 @@ Python tests live under `python_tests/` so they stay distinct from SQL. Run with
 | Suite | Needs | Command |
 | --- | --- | --- |
 | Unit | Nothing except the venv | `uv run pytest python_tests/unit` |
-| Integration | Local Supabase | `uv run pytest python_tests/integration` (skips if down) |
+| Integration | Local Supabase | `uv run pytest python_tests/integration` (skips if down). Includes a POST to `functions/v1/hello_world`. |
 
 After seed changes, also smoke:
 

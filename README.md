@@ -6,7 +6,7 @@ This repo is a template with:
 - **Frontend** — React + TypeScript (Vite, pnpm workspace)
 - **Android** — Kotlin + Jetpack Compose (Gradle)
 - **React Native** — Expo (iOS, Android, and web from one codebase)
-- **Database** — Supabase (managed Postgres + Auth)
+- **Database** — Supabase (managed Postgres + Auth + Edge Functions)
 - **E2E** — Playwright (`web` + `web2`)
 
 ## Motivation
