@@ -1,10 +1,10 @@
 # Web Requirements
-fastapi==0.164.0
+fastapi==0.165.0
 uvicorn==0.54.0
 supabase==2.34.1
 
 # Functional Requirements
-litellm==1.110.0
+litellm==1.110.4
 
 # Utility Requirements
 python-dotenv==1.2.4
